@@ -31,7 +31,7 @@ EMAIL_HOST = EMAIL_HOST
 EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
-# DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
+DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
 
 # ADMINS = (
 #     ('You', 'you@email.com'),
@@ -39,7 +39,7 @@ EMAIL_PORT = EMAIL_PORT
 # MANAGERS = ADMINS
 
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 # Application definition
 
