@@ -87,11 +87,16 @@ class Project(models.Model):
     tax = models.IntegerField(default=19)
     statut = models.CharField(max_length=9, choices=(('Draft', 'draft'), ('yyy', 'active'), ('xxx', 'facture_sent'), ('bezhal', 'payed'), ('Absagen', 'canceled'),), default='Draft')
 
+    class Meta:
+        verbose_name = 'Project'
+        verbose_name_plural = 'Projects'
+        
     def get_absolute_url(self):
         return reverse('detail_project', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
+    
 
 
 class Attachment(models.Model):

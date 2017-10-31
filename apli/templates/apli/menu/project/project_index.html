@@ -1,0 +1,45 @@
+{% extends 'apli/base.html' %}
+{% block body %}
+
+    <!--TITULO y BOTON VENTANA   -->
+    <div class="container">
+        <div class=" form-group input-group form-inline col-md-12">
+            <h1>Projects</h1>
+            <a href="{% url 'proyecto_new' %"} <button type="submit" class=" btn btn-success btn-md pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- { if all_projects } -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-condensed table-bordered">
+                    <tr class="active info"> <!--Ventana emergente de boton de  para crear neuvo usuario.  -->
+                        
+                        <th><h3>Projektname</h3></th>
+                        <th><h3>Kunde</h3></th>
+                        <th><h3>start date</h3></th>
+                        <th><h3>end date</h3></th>
+                        <th><h3>type</h3></th>
+                        <th><h3>status</h3></th>
+                        <th><h3>commentar</h3></th>
+                    </tr>
+
+                    <!-- { for project in all_projects } -->
+                        <tr>
+                            
+                            <td><a href="{}"><p class="form-control-static">{{project.name}}</p></a></td>
+                            <td><a href="{}"><p class="form-control-static">{{project.client}}</p></a></td>
+                            <td><p class="form-control-static">{{project.fecha_creacion}}</p></td>
+                            <td><p class="form-control-static">{{project.comment}}</p></td>
+                            <td><p class="form-control-static">{{project.comment}}</p></td>
+                            <td><p class="form-control-static">{{project.comment}}</p></td>
+                            <td><p class="form-control-static">{{project.comment}}</p></td>
+                        </tr>
+                    <!-- { endfor } -->
+                </table>
+            </div>
+        <!-- { else } -->
+            <h3></h3>
+        <!-- { endif } -->
+    </div>
+{% endblock%}

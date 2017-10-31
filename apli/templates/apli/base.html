@@ -1,5 +1,5 @@
 <!-- { load fullcalendar_tags } -->
-<!-- { load static from staticfiles } -->
+{% load static from staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,21 +44,13 @@
                             <div class="collapse navbar-collapse" id="topNavBar">
                                 <ul class="nav navbar-nav">
 
-                                    <li role="presentation" class="{% block clients_active %}{% endblock %}"><a href="{"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> kontakt</a></li>
+                                    <li role="presentation" class="{% block clients_active %}{% endblock %}"><a href="{% url 'person_index' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> kontakt</a></li>
+
+                                    <li role="presentation" class="{% block cotizaciones_active %}{% endblock %}"><a href="{% url 'project_index' %}"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Projekt</a></li>
+
                                    
                                     
 
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle {% block cotizaciones_active %}{% endblock %}" data-toggle="dropdown" role="button" aria-expanded="false">
-                                            <span class="glyphicon glyphicon-briefcase" aria-hidden="true" class="{% block projects_active %}{% endblock %}"></span>
-                                            Projekt
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation" class=""><a href="{}"><span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> Angebot</a></li>
-                                            <li role="presentation" class="{% block ordenes_active %}{% endblock %}"><a href="{}"><span class="glyphicon glyphicon-level-up" aria-hidden="true"></span> Auftrag</a></li>
-                                            <li role="presentation" class="{% block projectss_active %}{% endblock %}"><a href="{}"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Job</a></li>
-                                        </ul>
                                     </li>
 
                                     <li role="presentation" class="{% block calendario_active %}{% endblock %}"><a href="{}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendar</a></li>
@@ -84,10 +76,9 @@
             </header>
         </div>
 
-    <!--     { block body }
+      {% block body %}
 
-        { endblock } -->
-
+        {% endblock %} 
         <footer>
         </footer>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
