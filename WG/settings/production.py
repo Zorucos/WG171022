@@ -154,7 +154,7 @@ SECURE_SSL_REDIRECT = False
 
 LOGIN_URL ='/register/login/'
 LOGOUT_REDIRECT_URL = '/register/login/'
-LOGIN_REDIRECT_URL = '/apli/'
+LOGIN_REDIRECT_URL = '/apli/dashboard'
 
 CORS_REPLACE_HTTPS_REFERER      = True
 HOST_SCHEME                     = "https://"

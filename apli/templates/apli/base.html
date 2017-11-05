@@ -26,6 +26,7 @@
     </head>
 
     <body>
+        {% if request.user.is_authenticated %}
         <div class="container-fluid">
             <header>
                 <div="row">
@@ -64,9 +65,9 @@
                                         </form>
                                      </li>
                                     <div class= "nav navbar-nav" >
-                                        {% if request.user.is_authenticated %}
+                                        
                                             <li role="presentation" class="pull-right"><a href="{% url 'logout' %}" > <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout {{ user }} </a></li>
-                                        {% endif %}
+                                      
                                     </div>
                                 </ul>
                             </div>
@@ -82,5 +83,7 @@
         <footer>
         </footer>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        {% else %}
+      {% endif %}
     </body>
 </html>
