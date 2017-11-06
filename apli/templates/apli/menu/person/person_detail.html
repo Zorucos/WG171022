@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1><small>Kunde/in:</small> {{person.name}}</h1>
+        <h1><small>Kontakt:</small> {{person.name}}</h1>
     </div>
 
     <!-- BOTONES PARA EDITAR ELIMINAR VENTANAS DESPEGABLES -->
@@ -17,7 +17,8 @@
             <a href="{% url 'person_delete' person.id %}" <button type="submit" class="btn btn-danger btn-xs glyphicon glyphicon-trash col-md" data-toggle="modal"></a>
 
             <!-- CREAR PDF -->
-            <a href="#ventana3" <button type="submit" class="btn btn-warning btn-xs glyphicon glyphicon-file col-md" data-toggle="modal"></a>
+
+            <a href="#ventana3" <button type="submit" class="btn btn-warning btn-xs glyphicon glyphicon-random col-md" data-toggle="modal"></a>
         </div>
     </div>
 

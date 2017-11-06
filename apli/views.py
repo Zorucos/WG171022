@@ -4,7 +4,7 @@
 # local directory
 
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required # requisito login  def
 from django.contrib.auth.mixins import LoginRequiredMixin # requisito login  viw 
@@ -40,12 +40,57 @@ def person_detail(request, pk):
 
 class PersonCreate(LoginRequiredMixin, CreateView):
     model = Person
-    fields = ['name', 'name_short', 'company', 'company_short', 'country', 'city', 'zip_code', 'address', 'email', 'phone', 'comment']
+    fields = ['name',
+            'name_short',
+            'company',
+            'company_short',
+            'country',
+            'city',
+            'zip_code',
+            'address',
+            'email',
+            'phone',
+            'comment',
+            'birthday',
+            'agent',
+            'client',
+            'model',
+            'photographe',
+            'make_up',
+            'styling',
+            'other',
+            'comment_other',
+            'sedcard_cost',
+            'bank_account',
+            'website'
+            ]
 
 class PersonUpdate(LoginRequiredMixin, UpdateView):
     model = Person
-    fields = ['name', 'name_short', 'company', 'company_short', 'agent', 'agent_short', 'country', 'city', 'zip_code', 'address', 'email', 'phone','email','sedcard','statut','comment','bank_account', 'website']
-
+    fields = ['name',
+            'name_short',
+            'company',
+            'company_short',
+            'country',
+            'city',
+            'zip_code',
+            'address',
+            'email',
+            'phone',
+            'comment',
+            'birthday',
+            'agent',
+            'client',
+            'model',
+            'photographe',
+            'make_up',
+            'styling',
+            'other',
+            'comment_other',
+            'sedcard_cost',
+            'bank_account',
+            'website'
+            ]
 
 class PersonDelete(LoginRequiredMixin, DeleteView):
     model = Person

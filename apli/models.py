@@ -40,7 +40,7 @@ class Person(models.Model):
         verbose_name_plural = 'Persons'
 
     def get_absolute_url(self):
-        return reverse('detail_person', kwargs={'pk': self.pk})
+        return reverse('person_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -92,7 +92,7 @@ class Project(models.Model):
         verbose_name_plural = 'Projects'
         
     def get_absolute_url(self):
-        return reverse('detail_project', kwargs={'pk': self.pk})
+        return reverse('project_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -141,7 +141,7 @@ class Assignment(models.Model):
         return self.person.name + ' - ' + self.project.name
 
     def get_absolute_url(self):
-        return reverse('detail_assignment', kwargs={'pk': self.pk})
+        return reverse('assignment_detail', kwargs={'pk': self.pk})
 
 
 class Horaire(models.Model):
@@ -157,7 +157,7 @@ class Horaire(models.Model):
         verbose_name_plural = 'Horaires'
 
     def get_absolute_url(self):
-        return reverse('detail_Horaire  ', kwargs={'pk': self.pk})
+        return reverse('horaire_detail', kwargs={'pk': self.pk})
 
 
 class Cost(models.Model):
@@ -177,7 +177,7 @@ class Cost(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('detail_cost', kwargs={'pk': self.pk})
+        return reverse('cost_detail', kwargs={'pk': self.pk})
 
 
 class Time(models.Model):
@@ -197,4 +197,4 @@ class Time(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('detail_time', kwargs={'pk': self.pk})
+        return reverse('time_detail', kwargs={'pk': self.pk})
