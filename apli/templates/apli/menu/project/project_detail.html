@@ -1,24 +1,40 @@
 {% extends 'apli/base.html' %}
 {% block body %}
     <div class="container">
-        <h1><small>Auftrag</small> {{project.name}}</h1>
+        <h1><small>Project  {{project.sort}}</small> {{project.name}} <small>from {{project.user}}</small></h1>
     </div>
 
     <!-- BOTONES PARA EDITAR ELIMINAR VENTANAS DESPEGABLES -->
     <div class="container  modal-header">
+ 
+    </div>
+
+
+        <div class="container  modal-header">
         <div class="row">
-            <!-- EDITAR -->
-            <a href="#" <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-pencil col-md-offset-10" data-toggle="modal"></a>
-            <!-- ELIMINAR -->
-            <a href="#" <button type="submit" class="btn btn-danger btn-xs glyphicon glyphicon-trash col-md" data-toggle="modal"></a>
-            <!-- Imprimir -->
-            <a href="#" <button type="submit" class="btn btn-info btn-xs glyphicon glyphicon-envelope col-md" data-toggle="modal"></a>
-            <!-- CREAR PDF -->
-            <a href="{% url 'pdf_rechnung' project.id %}" <button type="submit" class="btn btn-warning btn-xs glyphicon glyphicon-file col-md" data-toggle="modal"></a>
+<!-- add modelo -->
+            <a href="{% url 'assignment_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-user col-md-offset-2" data-toggle="modal"> </a>
+<!-- add parner -->
+            <a href="{% url 'assignment_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-briefcase col-md" data-toggle="modal"></a>
+<!-- add csoto -->
+            <a href="{% url 'person_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-gbp col-md" data-toggle="modal"></a>
+<!-- add tiempo -->
+            <a href="#ventana3" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-time col-md" data-toggle="modal"></a>  
+<!-- editar -->
+            <a href="{% url 'project_update' project.id %}" <button type="submit" class="btn btn-success btn-md glyphicon glyphicon-pencil col-md-offset-4" data-toggle="modal"></a>
+<!-- enviar -->
+            <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-envelope col-md" data-toggle="modal"></a>
+<!-- enviar -->
+            <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-send col-md" data-toggle="modal"></a>
+<!-- verpdf -->
+            <a href="#" <button type="submit" class="btn btn-warning btn-md glyphicon glyphicon-file col-md" data-toggle="modal"></a>
+<!-- eliminar -->
+            <a href="{% url 'project_delete' project.id %}" <button type="submit" class="btn btn-danger btn-md glyphicon glyphicon-trash col-md" data-toggle="modal"></a>
         </div>
     </div>
 
-    <!-- INFORMACION DE CLIENTE  -->
+
+       <!-- INFORMACION DE CLIENTE   -->
     <div class= "container">
         <br>
         <div class="row">
@@ -32,36 +48,318 @@
                 <h4><b>Date finish:</b> {{project.finish}}</h4>
             </div>
             <div class="container  col-md-4">
-                <h4><b>Preis (€):</b> {{project.total_price}}</h4>
+                <h4><b>type:</b> {{project.sort }}</h4>
             </div>
+            <div class="container  col-md-4">
+                <h4><b>Status:</b> {{project.statut}}</h4>
+            </div>
+            
+            <div class="container  col-md-4">
+                <h4><b>Archivzettel:</b> ARCHIVOS </h4>
+            </div>
+
         </div>
         <br>
         <div class="row">
             <div class="container  col-md-4">
-                <h4><b>Typ projekt:</b>xxx</h4>
+                <h4><b>Stunde ein Tag:</b> {{project.all_day}}</h4>
             </div>
-
             <div class="container  col-md-4">
-                <h4><b>Verantwortliche:</b>xxx</h4>
+                <h4><b>Stunde half Tag:</b>{{project.half_day}}</h4>
             </div>
-
-            <div class="container  col-md-4">
-                <h4><b>Archivzettel:</b>xxx
         </div>
+        <br>
+
+        <div class="row">
+
+            <div class="container  col-md-4">
+                <h4><b>Profi: price all day </b>{{project.all_day_price_pro}}</h4>
+            </div>
+
+            <div class="container  col-md-4">
+                <h4><b>Profi: price half day </b>{{project.half_day_price_pro}}</h4>
+            </div>
+        </div>
+      <!--   <div class="row">
+            <div class="container  col-md-4">
+                <h4><b>Profi model: all day: </b>{{project.over_price_pro}}</h4>
+            </div>
+            <div class="container  col-md-4">
+                <h4><b>Profi model: halfs day: </b>{{project.half_day_price_pro}}</h4>
+            </div>
+         </div> -->
+
+<div class="row">
+        <div class="container  col-md-4">
+                <h4><b>Profi over price: </b>{{project.over_price_pro}}</h4>
+            </div>
+            <div class="container  col-md-4">
+                <h4><b>Profi: all in price: </b>{{project.all_in_price_pro}}</h4>
+            </div>
+ </div>
+        
+
         <br>
         <div class="row">
             <div class="container  col-md-4">
-                <h4><b>Notiz: </b>xxx</h4>
+                <h4><b>semi-profi: price all day </b>{{project.all_day_price_semipro}}</h4>
             </div>
-         <div class="row modal-header"></div>
-    </div>
+            <div class="container  col-md-4">
+                <h4><b>semi-Profi: price half day: </b>{{project.half_day_price_semipro}}</h4>
+            </div>
+
+        </div>
+        
+<!-- 
+        <div class="row">
+            <div class="container  col-md-4">
+                <h4><b>semi-Profi model: all day: </b>price for model</h4>
+            </div>
+            <div class="container  col-md-4">
+                <h4><b>semi-Profi model: halfs day: </b>price for model</h4>
+            </div>
+         </div> -->
+        <div class="row">
+            <div class="container  col-md-4">
+                <h4><b>semi-Profi over price: </b>{{project.over_price_semipro}}</h4>
+            </div>
+            <div class="container  col-md-4">
+                <h4><b>semi-Profi client: all in price: </b>{{project.all_in_price_semipro}}</h4>
+            </div>
+        </div>
     <br>
+    <div class="row">
+                <div class="container  col-md-4">
+                    <h3 class="form-control-static"><b>Adresse</b> </h3>
+                </div>
 
-    <!-- TABLA de Modelos relacionados a projecto   -->
+                <div class="container  col-md-4">
+                    <h4 class="form-control-static" ><b>Land:</b> {{project.country}}</h4>
+                 </div>
+
+                <div class="container  col-md-4">
+                    <h4 class="form-control-static"><b>Stadt:</b> {{project.city}}
+                </div>
+
+                </h4><div class="container  col-md-4">
+                    <h4 class="form-control-static"><b>Straße:</b> {{project.address}}
+                </div>
+
+                </h4><div class="container  col-md-4">
+                    <h4 class="form-control-static"><b>zip_code:</b> {{project.zip_code}}
+                </div>
+                </h4><div class="container  col-md-4">
+                    <h4 class="form-control-static"><b>coment address: </b> {{project.comment_address}}
+                </div>
+            </div>
+<br>
+            <div class="row">
+                <div class="container  col-md-12">
+                    <h4><b>Honorary base</b>{{project.honorary_base}}</h4>
+                </div>
+
+                <div class="container  col-md-4">
+                    <h4><b>Honorary plus </b>{{project.honorary_plus}}</h4>
+                </div>
+
+                <div class="container  col-md-8">
+                    <h4><b>quantity models plus </b>{{project.quantity_models_honorary_plus}}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b>Make and Style hours </b>{{project.ms_hours }}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b>Make and Style price </b>{{project.ms_price}}</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container  col-md-4">
+                    <h4><b>requirement price: </b>{{project.requirement_price}}</h4>
+                </div>
+
+                <div class="container  col-md-4">
+                    <h4><b>Honorary plus </b>{{project.requirement_hours}}</h4>
+                </div>
+
+                <div class="container  col-md-4">
+                    <h4><b>quantity models plus </b>{{project.requisiten_price_for_each_model}}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b>Other</b>{{project.other_title  }}</h4>
+                </div>
+                <div class="container  col-md-8">
+                    <h4><b>Other description </b>{{project.other_description}}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b>Other price </b>{{project.other_price}}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b>Other price hours </b>{{project.other_hours }}</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container  col-md-4">
+                    <h4><b>photo price </b>{{project.photo_price }}</h4>
+                </div>
+
+                <div class="container  col-md-8">
+                    <h4><b> photo stunde </b>{{project.photo_hours }}</h4>
+                </div>
+<br>
+<br>
+
+                <div class="container  col-md-4">
+                    <h4><b> total price </b>{{project.total_price }}</h4>
+                </div>
+                <div class="container  col-md-4">
+                    <h4><b> tax </b>{{project.tax   }}</h4>
+                </div>
+                
+            </div>
+
+    <!-- TABLA de ASSIGNMENT ASSIGNADOS AL PROJECTO  -->
     <div class="container">
         <br>
         <div class="panel panel-warning">
-            <div class="panel-heading"><h3>Modelle das haben mit die Projekt gearbeitet</h3></div>
+            <div class="panel-heading"><h3>ASSIGNMENT ASSIGNADOS AL PROJECTO</h3></div>
+            <div class="panel-body">
+                {% if all_models %}
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tr class="active table-bordered">
+                                <th > Name</th>
+                                <th> Telefonnummer</th>
+                                <th> Email</th>
+                                <th> Status</th>
+                                <th> Card</th>
+                            </tr>
+                            {% for model in all_models %}
+                                <tr>
+                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
+                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
+                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
+                                    <td>{{model.statut}}</td>
+                                    <td>{{model.person.sedcard}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p> Keine Projekte </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA de ATTACHMENT  -->
+    <div class="container">
+        <br>
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h3>ATTACHMENT</h3></div>
+            <div class="panel-body">
+                {% if all_models %}
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tr class="active table-bordered">
+                                <th > Name</th>
+                                <th> Telefonnummer</th>
+                                <th> Email</th>
+                                <th> Status</th>
+                                <th> Card</th>
+                            </tr>
+                            {% for model in all_models %}
+                                <tr>
+                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
+                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
+                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
+                                    <td>{{model.statut}}</td>
+                                    <td>{{model.person.sedcard}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p> Keine Projekte </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA de COSTOS  -->
+    <div class="container">
+        <br>
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h3>COSTOS</h3></div>
+            <div class="panel-body">
+                {% if all_models %}
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tr class="active table-bordered">
+                                <th > Name</th>
+                                <th> Telefonnummer</th>
+                                <th> Email</th>
+                                <th> Status</th>
+                                <th> Card</th>
+                            </tr>
+                            {% for model in all_models %}
+                                <tr>
+                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
+                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
+                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
+                                    <td>{{model.statut}}</td>
+                                    <td>{{model.person.sedcard}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p> Keine Projekte </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+        <!-- TABLA de TASK  -->
+    <div class="container">
+        <br>
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h3>TASK </h3></div>
+            <div class="panel-body">
+                {% if all_models %}
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <tr class="active table-bordered">
+                                <th > Name</th>
+                                <th> Telefonnummer</th>
+                                <th> Email</th>
+                                <th> Status</th>
+                                <th> Card</th>
+                            </tr>
+                            {% for model in all_models %}
+                                <tr>
+                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
+                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
+                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
+                                    <td>{{model.statut}}</td>
+                                    <td>{{model.person.sedcard}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p> Keine Projekte </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+     <!-- TABLA de WORK TIME  -->
+    <div class="container">
+        <br>
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h3>WORK TIME</h3></div>
             <div class="panel-body">
                 {% if all_models %}
                     <div class="table-responsive">

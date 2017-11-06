@@ -93,7 +93,7 @@
                             </tr>
                             {% for project in all_projects %}
                                 <tr>
-                                    <td><a href="{% url 'detail_project' project.id %}"><p class="form-control-static">{{project.name}}<p></a></td>
+                                    <td><a href="{% url 'project_detail' project.id %}"><p class="form-control-static">{{project.name}}<p></a></td>
                                     <td><a><p class="form-control-static">{{project.total_price}}<p></a></td>
                                     <td><p class="form-control-static">{{project.start}}<p></td>
                                     <td><p class="form-control-static">{{project.finish}}<p></td>

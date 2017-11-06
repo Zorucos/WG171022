@@ -6,16 +6,16 @@
         <h1><small>User:</small> {{person.name}}</h1>
     </div>
 
-    <!-- BOTONES PARA EDITAR ELIMINAR VENTANAS DESPEGABLES -->
+    <!-- BOTONES de acceso rapido para funciones de la aplicacion -->
     <div class="container  modal-header">
         <div class="row">
-            <!-- EDITAR -->
+           
             <a href="{}" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-pencil col-md-offset-" data-toggle="modal"> New Task</a>
 
-            <!-- ELIMIMINAR -->
-            <a href="{}" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-trash col-md" data-toggle="modal"> New Projekt</a>
+            
+            <a href="{% url 'project_new' %}" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-trash col-md" data-toggle="modal"> New Projekt</a>
 
-            <a href="#ventana3" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-file col-md" data-toggle="modal"> New Kontakt </a>
+            <a href="{% url 'person_new' %}" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-file col-md" data-toggle="modal"> New Kontakt </a>
 
             <a href="#ventana3" <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-file col-md" data-toggle="modal"> Give Timing </a>
         </div>

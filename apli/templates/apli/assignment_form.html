@@ -1,12 +1,12 @@
 {% extends 'apli/base.html' %}
-{% block title %}proyecto{% endblock %}
-
+{% block title %}Add a Model{% endblock %}
+{% block cotizaciones_active %}active{% endblock %}
 
 {% block body %}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
-			    <p><h1 class="container "> Neuer Angebot /  Auftrag / job erstellen </h1></p>
+			    <p><h1 class="container "> Neuer Assignment erstellen </h1></p>
 			    <br>
 				<div class="">
 					<div class="panel-body container">
@@ -16,7 +16,7 @@
 							{% include 'apli/form-template.html' %}
 							<div class="form-group ">
 								<div class="col-sm-offset-2 col-md-3">
-									<button type="submit" class="btn btn-lg col-md-5 btn-success">Submit</button>
+									<button type="submit" class="btn btn-dm col-md-5 btn-success">Submit</button>
 								    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md pull-right" data-dismiss="modal" >Stornieren</a>
 								</div>
 
