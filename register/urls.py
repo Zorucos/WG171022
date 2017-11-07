@@ -20,8 +20,9 @@ urlpatterns = [
 
 
 	# RESET PASSWORD
-	url(r'^reset-password/$', password_reset, name='password_reset'),
-	url(r'^reset-password/done$', password_reset_done, name='password_reset_done'),
-	url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm, name='password_reset_confirm'),
-	url(r'^reset-password/complete$', password_reset_complete, name='password_reset_complete')
+	url(r'^reset-password/$', auth_views.password_reset, name='password_reset'),
+	url(r'^reset-password/done$', auth_views.password_reset_done, name='password_reset_done'),
+	url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
+	url(r'^reset-password/complete$', auth_views.password_reset_complete, name='password_reset_complete')
+	#url('^', include('django.contrib.auth.urls')), #este url, incluye todo lo anteriormente expuesto. 
 	]
