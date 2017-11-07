@@ -4,18 +4,17 @@ from django.db import models
 
 # # Create your models here.
 # class Profile(models.Model):
-# 	user			= models.OneToOneField(User)
-# 	followers		= models.ManzToManzField(User, related_name="", blank=True)
-# 	activated 		= models.BooleanField(default=False)
-# 	timestamp		= models.DateTimeField(auto_now_add=True)
-# 	updated 		= models.DateTimeField(auto_now=True)
+# user			        = models.OneToOneField(User)
+# activated 		    = models.BooleanField(default=False)
+# timestamp		      = models.DateTimeField(auto_now_add=True)
+# updated 		      = models.DateTimeField(auto_now=True)
+# email_confirmed   = models.BooleanField(default=False)
+# birth_date        = models.DateField(null=True, blank=True)
 
-# 	objects = ProfileManager()
 
-# 	def __str__(self):
-# 		return self.user.username
-
-# 	def send_activation_email(self):
-# 		print("Activation")
-# 		pass
+# @receiver(post_save, sender=User)
+# def update_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#     instance.profile.save()
 
