@@ -8,6 +8,7 @@ from . import views
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
 
+
 urlpatterns = [
 
 
@@ -17,6 +18,7 @@ urlpatterns = [
 
 	# REGISTER
 	url(r'^register/$', RegisterView.as_view(template_name='register.html'), name="register"),
+# 	url(r'^signup/$', register_views.signup, name='signup'),
 
 
 	# RESET PASSWORD
