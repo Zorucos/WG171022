@@ -3,7 +3,7 @@ from django.views.generic import View, CreateView
 
 from django.views.generic import CreateView # registration
 from django.contrib.auth import get_user_model #registration
-from .forms import RegisterForm
+from .forms import RegisterForm, SignUpForm
 
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth import login, authenticate
@@ -18,9 +18,11 @@ class RegisterView(CreateView):
     success_url = "/register/login"
 
     
-#     def signup(request):
+
+
+# def signup(request):
 #     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
+#         form = SignUpForm(request.POST)
 #         if form.is_valid():
 #             form.save()
 #             username = form.cleaned_data.get('username')
@@ -29,5 +31,5 @@ class RegisterView(CreateView):
 #             login(request, user)
 #             return redirect('home')
 #     else:
-#         form = UserCreationForm()
+#         form = SignUpForm()
 #     return render(request, 'signup.html', {'form': form})
