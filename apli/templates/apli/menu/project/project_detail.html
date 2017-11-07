@@ -1,7 +1,7 @@
 {% extends 'apli/base.html' %}
 {% block body %}
     <div class="container">
-        <h1><small>Project  {{project.sort}}</small> {{project.name}} <small>from {{project.user}}</small></h1>
+        <h1><small>Project  {{project.sort}}</small> {{project.name}} <small>from {{project.user.first_name}}</small></h1>
     </div>
 
     <!-- BOTONES PARA EDITAR ELIMINAR VENTANAS DESPEGABLES -->
@@ -225,7 +225,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading"><h3>ASSIGNMENT ASSIGNADOS AL PROJECTO</h3></div>
             <div class="panel-body">
-                {% if all_models %}
+                {% if all_persons %}
                     <div class="table-responsive">
                         <table class="table table-hover ">
                             <tr class="active table-bordered">
@@ -235,13 +235,13 @@
                                 <th> Status</th>
                                 <th> Card</th>
                             </tr>
-                            {% for model in all_models %}
+                            {% for assignment in all_persons %}
                                 <tr>
-                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
-                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
-                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
-                                    <td>{{model.statut}}</td>
-                                    <td>{{model.person.sedcard}}</td>
+                                    <td><a href="{% url 'assignment_detail' assignment.person.id %}"><p class="form-control-static">{{assignment.person.name}}<p></a></td>
+                                    <td><a href="tel:{{ assignment.person.phone }}">{{assignment.person.phone}}</a></td>
+                                    <td><a href="mailto:{{ model.person.email }}">{{assignment.person.email}}</a></td>
+                                    <td>{{assignment.statut}}</td>
+                                    <td>{{assignment.person.sedcard}}</td>
                                 </tr>
                             {% endfor %}
                         </table>

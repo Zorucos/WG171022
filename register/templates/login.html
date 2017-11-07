@@ -17,14 +17,14 @@
 
 <form class= 'container' method="post" action="{% url 'login' %}">
 {% csrf_token %}
-{{ form.as_p}}
+{{ form.as_p }}
 <br>
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p class= 'container' ><a href="{% url 'password_reset' %}">Lost password?</a></p>
-<p class= 'container' ><a href="{% url 'register' %}">Register</a></p>
+<p class= 'container' ><a href="/register/password_reset">Lost password?</a></p>
+<p class= 'container' ><a href="{% url 'signup' %}">Register</a></p>
 
 {% endblock %}

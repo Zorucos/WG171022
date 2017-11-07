@@ -76,7 +76,11 @@ class AssignmentDelete(LoginRequiredMixin, DeleteView):
 
 @login_required(login_url='/register/login/')
 def dashboard(request):
-    return render(request, 'apli/menu/dashboard/dashboard.html', )
+    all_projects    = Project.objects.all()
+    all_persons     = Person.objects.all()
+    
+    
+    return render(request, 'apli/menu/dashboard/dashboard.html', {'all_projects': all_projects, 'all_persons': all_persons})
 
 # 2- PERSON: index, detail, create, update, delete.
 
@@ -151,7 +155,7 @@ class PersonDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('person_index')   
 
 
-#  PROJECT: Index, detail, create, update, delete.
+#  3- PROJECT: Index, detail, create, update, delete.
 
 @login_required(login_url='/register/login/')
 def project_index(request):

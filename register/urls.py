@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from register.views import RegisterView
 from . import views
-from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
 
 
@@ -18,16 +17,15 @@ urlpatterns = [
 
 	# REGISTER
 	url(r'^register/$', RegisterView.as_view(template_name='register.html'), name="register"),
-# 	url(r'^signup/$', register_views.signup, name='signup'),
-# 	url(r'^account_activation_sent/$', core_views.account_activation_sent, name='account_activation_sent'),
-# 	url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-#         core_views.activate, name='activate'),
+	url(r'^signup/$', views.signup, name='signup'),
+	url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
+	url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
 
 
 	# RESET PASSWORD
-	url(r'^reset-password/$', auth_views.password_reset, name='password_reset'),
-	url(r'^reset-password/done$', auth_views.password_reset_done, name='password_reset_done'),
-	url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
-	url(r'^reset-password/complete$', auth_views.password_reset_complete, name='password_reset_complete')
+	url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',auth_views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete')
 	#url('^', include('django.contrib.auth.urls')), #este url, incluye todo lo anteriormente expuesto. 
 	]
