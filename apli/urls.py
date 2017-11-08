@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
+    #ORDENAR ALFABETICAMENTE
 
    #ASSIGNMENT: index, detail, create, update, delete.
 
@@ -14,6 +15,17 @@ urlpatterns = [
     url(r'^assignment/(?P<pk>[0-9]+)/delete/$', views.AssignmentDelete.as_view(), name='assignment_delete'),
     #url(r'^assignment/(?P<pk>[0-9]+)/send/$', views.Assignment_send, name='assignment_send'),
 	
+    #BUSCAR
+
+    url(r'^busca/$', views.busca, name='busca'), 
+
+    # COSTO
+    url(r'^cost/(?P<pk>[0-9]+)/$', views.cost_detail, name='cost_detail'),
+    url(r'^cost/$', views.cost_index, name='cost_index'),
+    url(r'^cost/new/$', views.CostCreate.as_view(), name='cost_new'),
+    url(r'^cost/(?P<pk>[0-9]+)/update/$', views.CostUpdate.as_view(), name='cost_update'),
+    url(r'^cost/(?P<pk>[0-9]+)/delete/$', views.CostDelete.as_view(), name='cost_delete'),
+
 	#DASHBOARD: index
 	url(r'^dashboard$', views.dashboard, name='dashboard'),
 

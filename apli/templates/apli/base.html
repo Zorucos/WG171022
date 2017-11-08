@@ -54,10 +54,10 @@
 
                                     </li>
 
-                                    <li role="presentation" class="{% block calendario_active %}{% endblock %}"><a href="{}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendar</a></li>
+                                    <li role="presentation" class="{% block calendario_active %}{% endblock %}"><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendar</a></li>
                                    
                                     <li role="presentation" >
-                                        <form  method="GET" action="{}" class="navbar-form navbar-right" role="search" >
+                                        <form  method="GET" action="{% url 'busca' %}" class="navbar-form navbar-right" role="search" >
                                             <input type="text" placeholder="Suchen" class="form-control" name="q" value="{{ request.GET.q }}">
                                             <button type="submit" class="btn btn-primary ">
                                                 <span class="glyphicon glyphicon-search"></span>

@@ -1,6 +1,7 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils import six
 
+#esto te genera un codigo de registro por un tiemp odeterminado... como lo mismo que hace la confirmacion de pasword
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
         return (

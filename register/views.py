@@ -3,31 +3,30 @@ from django.views.generic import View, CreateView
 
 from django.views.generic import CreateView # registration
 from django.contrib.auth import get_user_model #registration
-from .forms import RegisterForm, SignUpForm
+from .forms import  SignUpForm
 
-from django.contrib.auth.forms import UserCreationForm # si
-from django.contrib.auth import login, authenticate #si
-from django.contrib.sites.shortcuts import get_current_site #si
-from django.utils.encoding import force_bytes #si
-from django.utils.http import urlsafe_base64_encode # si
-from django.template.loader import render_to_string # si
-from register.forms import SignUpForm # si
-from register.tokens import account_activation_token # si
-from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.forms import UserCreationForm # register
+from django.contrib.auth import login, authenticate #register
+from django.contrib.sites.shortcuts import get_current_site #register
+from django.utils.encoding import force_bytes #register
+from django.utils.http import urlsafe_base64_encode # register
+from django.template.loader import render_to_string # register
+from register.forms import SignUpForm # register
+from register.tokens import account_activation_token # register
+from django.contrib.auth.models import User # register
+from django.utils.encoding import force_text # register
+from django.utils.http import urlsafe_base64_decode # register
 
 
 User = get_user_model()
 
-class RegisterView(CreateView):
-    form_class = RegisterForm
-    template_name = 'register.html'
-    success_url = "/register/login"
 
-    
+   
 
+#REGISTER
 
+#a continuación, se explica el codigo en el orden que ocurren las cosas:
+#primero el usuari ingresa sus datos y se envia el mail con un codigo personal de confirmacion.
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -49,6 +48,13 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
+
+# entonces te manda a la pagina, tu mail fue enviado. 
+def account_activation_sent(request):
+    return render(request, 'account_activation_sent.html', )
+
+#REGISTER: activacion de mail entra aca para guardar su usuario. se crea un perfil tambien. 
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -61,13 +67,17 @@ def activate(request, uidb64, token):
         user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('account_activation_complete')
     else:
         return render(request, 'account_activation_invalid.html')
 
 
-def account_activation_sent(request):
-	return render(request, 'account_activation_sent.html', )
+#te manda a la pagina que se confirmo tu registro.
+def account_activation_complete(request):
+    return render(request, 'account_activation_complete.html', )
+
+
+    #en teoria lo siguiente no se necesita, pero lo dejo por si las mosca...deberia ser automatico con auth_views
 
 # def password_reset_complete(request):
 # 	return render(request, 'password_reset_complete.html', )

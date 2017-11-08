@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required # requisito login  def
 from django.contrib.auth.mixins import LoginRequiredMixin # requisito login  viw 
+from django.db.models import Q # busqueda
 from django.views.generic import View
 from .models import Person, Project, Attachment, Assignment, Horaire, Cost, Time
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -19,11 +20,16 @@ from django.conf import settings # mail
 
 #--------------------------
 # INDICE (ordenar alfabéticamente)
-# 1- dashboard ...linea 28
-# 2- PERSON    ...linea 34
-# 3- Project   ...linea 107
+# 1-assignment 
+# 2- Buscar    ...linea
+# 3- COSTO
+# 4- dashboard ...linea 
+# 5- PERSON    ...linea 
+# 6- Project   ...linea 
 # -------------------------
 
+ ############################################################
+#ASSIGNMENT
 
 @login_required(login_url='/register/login/')
 def assignment_index(request):
@@ -72,7 +78,78 @@ class AssignmentDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('assignment_index')
 
 
-# 1- DASHBOARD 
+
+ ############################################################
+#  BUSCAR
+
+@login_required(login_url='/register/login/')
+def busca(request):
+    query = request.GET.get("q")
+    querysetAssignments = Assignment.objects.all()
+    if query:
+        querysetAssignments = querysetAssignments.filter(
+            Q(id__icontains=query)
+        ).distinct()
+
+    querysetPersons = Person.objects.all()
+    if query:
+        querysetPersons = querysetPersons.filter(
+            Q(name__icontains=query)|
+            Q(email__icontains=query)
+        ).distinct()
+
+    querysetProjects = Project.objects.all()
+    if query:
+        querysetProjects = querysetProjects.filter(
+            Q(name__icontains=query)
+        ).distinct()
+
+    return render(request, 'apli/menu/busca/busca.html', {"busca_assignment": querysetAssignments, "busca_persons": querysetPersons, "busca_projects": querysetProjects})
+ 
+
+ ############################################################
+
+ #COSTO: index, detail, create, update, delete.       
+@login_required(login_url='/register/login/')
+def cost_index(request):
+    all_costs = Cost.objects.all().filter(sort='')
+    return render(request, 'apli/cost/cost_index.html', {'all_costs': all_costs})
+
+@login_required(login_url='/register/login/')
+def cost_detail(request, pk):
+    cost = get_object_or_404(Cost, id=pk)
+    return render(request, 'apli/menu/cost/cost_detail.html', {'cost': cost})
+
+class CostCreate(LoginRequiredMixin, CreateView):
+    model = Cost
+    fields = ['user',
+             'project',
+             'comment',
+             'date',
+             'amount',
+             'title',
+             'statut'
+             ]
+
+class CostUpdate(LoginRequiredMixin, UpdateView):
+    model = Cost
+    fields = ['user',
+             'project',
+             'comment',
+             'date',
+             'amount',
+             'title',
+             'statut'
+             ]
+
+
+class CostDelete(LoginRequiredMixin, DeleteView):
+    model = Cost
+    success_url = reverse_lazy('cost_index')
+
+##############################################################
+
+#  DASHBOARD 
 
 @login_required(login_url='/register/login/')
 def dashboard(request):
@@ -82,7 +159,7 @@ def dashboard(request):
     
     return render(request, 'apli/menu/dashboard/dashboard.html', {'all_projects': all_projects, 'all_persons': all_persons})
 
-# 2- PERSON: index, detail, create, update, delete.
+#  PERSON: index, detail, create, update, delete.
 
 @login_required(login_url='/register/login/')
 def person_index(request):
@@ -155,7 +232,9 @@ class PersonDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('person_index')   
 
 
-#  3- PROJECT: Index, detail, create, update, delete.
+
+ ############################################################
+#   PROJECT: Index, detail, create, update, delete.
 
 @login_required(login_url='/register/login/')
 def project_index(request):
