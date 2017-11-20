@@ -23,7 +23,7 @@
 <!-- editar -->
             <a href="{% url 'project_update' project.id %}" <button type="submit" class="btn btn-success btn-md glyphicon glyphicon-pencil col-md-offset-4" data-toggle="modal"></a>
 <!-- enviar -->
-            <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-envelope col-md" data-toggle="modal"></a>
+            <a href="{% url 'project_quotation_send' project.id %}" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-envelope col-md" data-toggle="modal"></a>
 <!-- enviar -->
             <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-send col-md" data-toggle="modal"></a>
 <!-- verpdf -->

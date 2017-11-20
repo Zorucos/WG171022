@@ -1,7 +1,7 @@
 # Python first
 # django second
 # your apps
-# local directory
+# local directory 
 
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -13,19 +13,27 @@ from django.views.generic import View
 from .models import Person, Project, Attachment, Assignment, Horaire, Cost, Time
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+
+
 # para mandar email
 from django.core.mail import send_mail # send email
 from django.contrib import messages 
 from django.conf import settings # mail
-
+from django.core.mail import EmailMultiAlternatives # mail
+from django.template.loader import get_template #PDF
+from io import BytesIO #pdf
+from xhtml2pdf import pisa # pdf
+from datetime import date #pdf ocupa date
+from django.core.files.base import ContentFile #Adjuntar pdf email algo asi
 #--------------------------
 # INDICE (ordenar alfabéticamente)
 # 1-assignment 
 # 2- Buscar    ...linea
 # 3- COSTO
 # 4- dashboard ...linea 
-# 5- PERSON    ...linea 
-# 6- Project   ...linea 
+# 5- MAIL
+# 6- PERSON    ...linea 
+# 7- Project   ...linea 
 # -------------------------
 
  ############################################################
@@ -159,6 +167,44 @@ def dashboard(request):
     
     return render(request, 'apli/menu/dashboard/dashboard.html', {'all_projects': all_projects, 'all_persons': all_persons})
 
+###################################################################
+
+# MAIL MAIL MAIL 
+
+def mail_confirmation_work_to_model(request):
+    return render(request, 'apli/menu/mail/mail_confirmation_work_to_model.html')
+
+def project_quotation_send(request, pk):
+    project = get_object_or_404(Project, id=pk)
+    all_persons = project.assignment_set.all()
+    all_attachments = project.attachment_set.all()
+    all_costs = project.cost_set.all()
+
+    # debo crear el attachment
+    template = get_template('apli/menu/pdf/quotation.html')
+    context = {"project": project, }
+    html = template.render(context)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+
+    at = Attachment(project=project, sort=project.sort, send_date = date.today())
+
+    at.file.save('nombre.pdf', ContentFile(result.getvalue()))
+    at.save()
+
+    context2 = {"project": project, }
+    subject, from_email, to = 'new angebot', 'base.EMAIL_HOST_USER', project.client.email
+    text_content = 'This is an important message.'
+    htmly = get_template('apli/menu/mail/prueba.html')
+    html_content = htmly.render(context2)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.attach(at.file.name, result.getvalue(), )
+    msg.send()
+    return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
+
+
+#####################################################################
 #  PERSON: index, detail, create, update, delete.
 
 @login_required(login_url='/register/login/')

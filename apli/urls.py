@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^assignment/(?P<pk>[0-9]+)/delete/$', views.AssignmentDelete.as_view(), name='assignment_delete'),
     #url(r'^assignment/(?P<pk>[0-9]+)/send/$', views.Assignment_send, name='assignment_send'),
 	
-    #BUSCAR
+    #BUSCAR 
 
     url(r'^busca/$', views.busca, name='busca'), 
 
@@ -28,6 +28,10 @@ urlpatterns = [
 
 	#DASHBOARD: index
 	url(r'^dashboard$', views.dashboard, name='dashboard'),
+
+    #MAIL
+    url(r'^project/(?P<pk>[0-9]+)/send/$', views.project_quotation_send, name='project_quotation_send'),
+    #url(r'^mail_confirmation_work_to_model/$', views.mail_confirmation_work_to_model, name='mail_confirmation_work_to_model'),
 
 	# PERSON: index, detail, create, update, delete.
 
