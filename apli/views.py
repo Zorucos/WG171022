@@ -14,6 +14,12 @@ from .models import Person, Project, Attachment, Assignment, Horaire, Cost, Time
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 
+# para las tablas + render tbn (za esta)
+from django_tables2 import RequestConfig #TABLA
+from .tables import PersonTable #TaBLA 
+
+
+
 
 # para mandar email
 from django.core.mail import send_mail # send email
@@ -35,6 +41,13 @@ from django.core.files.base import ContentFile #Adjuntar pdf email algo asi
 # 6- PERSON    ...linea 
 # 7- Project   ...linea 
 # -------------------------
+
+
+
+
+
+
+
 
  ############################################################
 #ASSIGNMENT
@@ -198,7 +211,7 @@ def project_quotation_send(request, pk):
     htmly = get_template('apli/menu/mail/prueba.html')
     html_content = htmly.render(context2)
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
-    reply_to=["info@wunschgesichter.de"] 
+    reply_to=["ismaelsorucoi@gmail.com"] 
     msg.attach_alternative(html_content, "text/html")
     msg.attach(at.file.name, result.getvalue(), )
     msg.send()
@@ -210,8 +223,10 @@ def project_quotation_send(request, pk):
 
 @login_required(login_url='/register/login/')
 def person_index(request):
-    all_persons = Person.objects.all()
-    return render(request, 'apli/menu/person/person_index.html', {'all_persons': all_persons})
+    table = PersonTable(Person.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, 'apli/menu/person/person_index.html', {'table': table})
+    
 
 @login_required(login_url='/register/login/')
 def person_detail(request, pk):
