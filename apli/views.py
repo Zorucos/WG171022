@@ -198,6 +198,7 @@ def project_quotation_send(request, pk):
     htmly = get_template('apli/menu/mail/prueba.html')
     html_content = htmly.render(context2)
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    reply_to=["info@wunschgesichter.de"] 
     msg.attach_alternative(html_content, "text/html")
     msg.attach(at.file.name, result.getvalue(), )
     msg.send()
