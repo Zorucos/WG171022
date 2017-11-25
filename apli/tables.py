@@ -6,10 +6,12 @@ class PersonTable(tables.Table):#name
 
 	class Meta:
 		model = Person
+		email = tables.EmailColumn()
+
 		template = 'django_tables2/bootstrap.html'
 		fields = [
             'name',
-            'name_short',
             'company',
-            'company_short',
+            'email',
+            'phone',
         ]
