@@ -38,6 +38,7 @@ class Person(models.Model):
     class Meta:
         verbose_name = 'Person'
         verbose_name_plural = 'Persons'
+        ordering = ["-id"]
 
     def get_absolute_url(self):
         return reverse('person_detail', kwargs={'pk': self.pk})
@@ -90,6 +91,7 @@ class Project(models.Model):
     class Meta:
         verbose_name        = 'Project'
         verbose_name_plural = 'Projects'
+        ordering = ["name"]
         
     def get_absolute_url(self):
         return reverse('project_detail', kwargs={'pk': self.pk})

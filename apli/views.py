@@ -18,6 +18,8 @@ from django.core.urlresolvers import reverse_lazy
 from django_tables2 import RequestConfig #TABLA
 from .tables import PersonTable #TaBLA 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
@@ -65,6 +67,7 @@ def assignment_detail(request, pk):
 
 class AssignmentCreate(LoginRequiredMixin, CreateView):
     model = Assignment
+
     fields = ['project',
             'person',
             'model_type',
@@ -189,33 +192,67 @@ def mail_confirmation_work_to_model(request):
 
 def project_quotation_send(request, pk):
     project = get_object_or_404(Project, id=pk)
-    all_persons = project.assignment_set.all()
-    all_attachments = project.attachment_set.all()
-    all_costs = project.cost_set.all()
+    
 
-    # debo crear el attachment
-    template = get_template('apli/menu/pdf/quotation.html')
-    context = {"project": project, }
-    html = template.render(context)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if project.sort == "Angebot":
+        all_persons = project.assignment_set.all()
+        all_attachments = project.attachment_set.all()
+        all_costs = project.cost_set.all()
 
-    at = Attachment(project=project, sort=project.sort, send_date = date.today())
+        # debo crear el attachment
+        template = get_template('menu/quotation/quotation.html')
+        context = {"project": project, }
+        html = template.render(context)
+        result = BytesIO()
+        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
 
-    at.file.save('nombre.pdf', ContentFile(result.getvalue()))
-    at.save()
+        at = Attachment(project=project, sort=project.sort, send_date = date.today())
 
-    context2 = {"project": project, }
-    subject, from_email, to = 'new angebot', 'base.EMAIL_HOST_USER', project.client.email
-    text_content = 'This is an important message.'
-    htmly = get_template('apli/menu/mail/prueba.html')
-    html_content = htmly.render(context2)
-    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
-    reply_to=["ismaelsorucoi@gmail.com"] 
-    msg.attach_alternative(html_content, "text/html")
-    msg.attach(at.file.name, result.getvalue(), )
-    msg.send()
-    return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
+        at.file.save('nombre.pdf', ContentFile(result.getvalue()))
+        at.save()
+
+        context2 = {"project": project, }
+        subject, from_email, to = 'ANGEBOT', 'base.EMAIL_HOST_USER', project.client.email
+        text_content = 'This is an important message.'
+        htmly = get_template('apli/menu/mail/mail_cotization.html')
+        html_content = htmly.render(context2)
+        msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+        reply_to=["ismaelsorucoi@gmail.com"] 
+        msg.attach_alternative(html_content, "text/html")
+        msg.attach(at.file.name, result.getvalue(), )
+        msg.send()
+        return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
+    
+
+    if project.sort == "Auftrag":
+        all_persons = project.assignment_set.all()
+        all_attachments = project.attachment_set.all()
+        all_costs = project.cost_set.all()
+
+        # debo crear el attachment
+        template = get_template('menu/sales_order/sales_order.html')
+        context = {"project": project, }
+        html = template.render(context)
+        result = BytesIO()
+        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+
+        at = Attachment(project=project, sort=project.sort, send_date = date.today())
+
+        at.file.save('nombre.pdf', ContentFile(result.getvalue()))
+        at.save()
+
+        context2 = {"project": project, }
+        subject, from_email, to = 'new angebot', 'base.EMAIL_HOST_USER', project.client.email
+        text_content = 'This is an important message.'
+        htmly = get_template('apli/menu/mail/mail_sales_order.html')
+        html_content = htmly.render(context2)
+        msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+        reply_to=["ismaelsorucoi@gmail.com"] 
+        msg.attach_alternative(html_content, "text/html")
+        msg.attach(at.file.name, result.getvalue(), )
+        msg.send()
+        return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
+
 
 
 #####################################################################
@@ -301,6 +338,16 @@ class PersonDelete(LoginRequiredMixin, DeleteView):
 @login_required(login_url='/register/login/')
 def project_index(request):
     all_projects = Project.objects.all()
+    paginator = Paginator(all_projects, 10)
+    page = request.GET.get('page', 1)
+    
+    try:
+        all_projects = paginator.page(page)
+    except PageNotAnInteger:
+        all_projects = paginator.page(1)
+    except EmptyPage:
+        all_projects = paginator.page(paginator.num_pages)
+
     return render(request, 'apli/menu/project/project_index.html', {'all_projects': all_projects})
     
 @login_required(login_url='/register/login/')   

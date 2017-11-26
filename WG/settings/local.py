@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'register.apps.RegisterConfig',
     'django_tables2',
-    'django_filters'
+    'django_filters',
+    'pdf.apps.PdfConfig'
 ]
 
 

@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^apli/', include('apli.urls')),
     # url(r'^calendar/', include('fullcalendar.urls')),
     url(r'^register/', include('register.urls')),
+    url(r'^pdf/', include('pdf.urls')),
 ]

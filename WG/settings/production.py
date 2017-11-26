@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     'django.template.context_processors.request'
     'django_tables2',
-    'django_filters'
+    'django_filters',
+    'pdf.apps.PdfConfig'
 
 ]
 

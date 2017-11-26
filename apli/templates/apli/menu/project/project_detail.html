@@ -20,14 +20,18 @@
             <a href="{% url 'cost_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-gbp col-md" data-toggle="modal"></a>
 <!-- add tiempo -->
             <a href="#ventana3" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-time col-md" data-toggle="modal"></a>  
+
+
+                <!-- segunda parte  -->
+
 <!-- editar -->
             <a href="{% url 'project_update' project.id %}" <button type="submit" class="btn btn-success btn-md glyphicon glyphicon-pencil col-md-offset-4" data-toggle="modal"></a>
 <!-- enviar -->
             <a href="{% url 'project_quotation_send' project.id %}" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-envelope col-md" data-toggle="modal"></a>
-<!-- enviar -->
+<!-- enviar rechnung-->
             <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-send col-md" data-toggle="modal"></a>
 <!-- verpdf -->
-            <a href="#" <button type="submit" class="btn btn-warning btn-md glyphicon glyphicon-file col-md" data-toggle="modal"></a>
+            <a href="{% url 'pdf_rechnung' project.id %}" <button type="submit" class="btn btn-warning btn-md glyphicon glyphicon-file col-md" data-toggle="modal"></a>
 <!-- eliminar -->
             <a href="{% url 'project_delete' project.id %}" <button type="submit" class="btn btn-danger btn-md glyphicon glyphicon-trash col-md" data-toggle="modal"></a>
         </div>
@@ -287,39 +291,40 @@
         </div>
     </div>
 
-    <!-- TABLA de COSTOS  -->
+                <!-- COSTO   -->
     <div class="container">
         <br>
         <div class="panel panel-warning">
-            <div class="panel-heading"><h3>COSTOS</h3></div>
+            <div class="panel-heading"><h3>Costs</h3></div>
             <div class="panel-body">
-                {% if all_models %}
+                {% if all_costs %}
                     <div class="table-responsive">
                         <table class="table table-hover ">
                             <tr class="active table-bordered">
-                                <th > Name</th>
-                                <th> Telefonnummer</th>
-                                <th> Email</th>
-                                <th> Status</th>
-                                <th> Card</th>
+                                <th>Date</th>
+                                <th>Cost</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Comment</th>
                             </tr>
-                            {% for model in all_models %}
+                            {% for cost in all_costs %}
                                 <tr>
-                                    <td><a href="#"><p class="form-control-static">{{model.person.name}}<p></a></td>
-                                    <td><a href="tel:{{ model.person.phone }}">{{model.person.phone}}</a></td>
-                                    <td><a href="mailto:{{ model.person.email }}">{{model.person.email}}</a></td>
-                                    <td>{{model.statut}}</td>
-                                    <td>{{model.person.sedcard}}</td>
+                                    <td><a href="{#}">{{cost.date}}</td>
+                                    <td>{{cost.title}}</td>
+                                    <td>{{cost.amount}}</td>
+                                    <td>{{cost.statut}}</td>
+                                    <td>{{cost.comment}}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
                 {% else %}
-                    <p> Keine Projekte </p>
+                    <p> Keine Assignment </p>
                 {% endif %}
             </div>
         </div>
     </div>
+
 
         <!-- TABLA de TASK  -->
     <div class="container">

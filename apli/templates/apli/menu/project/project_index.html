@@ -39,10 +39,30 @@
                             <td><p class="form-control-static">{{project.comment}}</p></td>
                         </tr>
                     {% endfor %}
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if all_projects.has_previous %}
+                                    <a href="?page={{ all_projects.previous_page_number }}">bisherig</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Seite {{ all_projects.number }} of {{ all_projects.paginator.num_pages }}.
+                                </span>
+
+                                {% if all_projects.has_next %}
+                                    <a href="?page={{ all_projects.next_page_number }}">Nächste</a>
+                                {% endif %}
+                                
+                            </span>
+                        </div>
                 </table>
             </div>
         {% else %}
             <h3></h3>
         {% endif %}
+
+
     </div>
+
+
 {% endblock%}
