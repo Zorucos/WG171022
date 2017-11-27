@@ -31,7 +31,7 @@
 <!-- enviar rechnung-->
             <a href="#" <button type="submit" class="btn btn-info btn-md glyphicon glyphicon-send col-md" data-toggle="modal"></a>
 <!-- verpdf -->
-            <a href="{% url 'pdf_rechnung' project.id %}" <button type="submit" class="btn btn-warning btn-md glyphicon glyphicon-file col-md" data-toggle="modal"></a>
+            <a target="_blank" href="{% url 'pdf_rechnung' project.id %}" <button type="submit" class="btn btn-warning btn-md glyphicon glyphicon-file col-md" data-toggle="modal"></a>
 <!-- eliminar -->
             <a href="{% url 'project_delete' project.id %}" <button type="submit" class="btn btn-danger btn-md glyphicon glyphicon-trash col-md" data-toggle="modal"></a>
         </div>

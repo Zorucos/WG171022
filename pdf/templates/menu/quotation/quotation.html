@@ -17,7 +17,7 @@
                  color: #007cae;
              }
              .unter_image {
-                 font-size: 20px;
+                 font-size: 12px;
                  font-weight: 100;
                  text-align: right;
                  color: #A3E4D7  ;
@@ -26,7 +26,7 @@
                  font-size: 12px;
                  text-align: right;
                  color: #A3E4D7;
-                 margin-left: 700px;
+                  left: 700px;
                   
              }
                .coco {
@@ -49,7 +49,7 @@
                 padding: 10px 20px 0px 20px;  
              }
              .image {
-                 font-size: 15px;
+                 font-size: 1px;
                  font-weight: 100;
                  text-align: right;
                 /* text-align: right;*/
@@ -78,10 +78,6 @@
                
                   height: 4cm;
             }
-            
-body {
-  font-size: 12px;
-}
 
 
          </style>
@@ -111,10 +107,8 @@ body {
             <br>
             <h2, font='times 24'> 28217 Bremen</h2>
             <br>
-<table>
-      <tr>
-         <td>
-                <!-- comentario  sobre rechnung-->
+
+                <!-- comentario  sobre rechnung--> 
                             <p>Auf der Basis Ihrer Beauftragung  erlauben wir uns Ihnen
                             folgende Positionen in {{ project.sort }} zu stellen: </p>   
 
@@ -125,44 +119,45 @@ body {
                              <strong>Projekt:</strong> {{ project.name}}<br/>
                              <strong>Notiz:</strong> {{ project.comment }}<br/>
                              <strong>Datum:</strong> {{ project.start }}
-                             <hr class='hrItem' />
+                             
 
                 <!-- vamos con la informacion importante-->
+<OL>
+<table>
+      <tr>
+         <td>
 
+                   {% if project.half_day_price_pro  %}  
+                        <strong><h4><LI> Modelhonorar Profi</h4></strong>
+                        <p, font='times'><u><em>Buchung/Honorar:<br></em></u>  {{ project.half_day }} Std. / {{ project.half_day_price_pro }} Euro (pro Model)</p>
+                        <p, font='times'><u><em></em></u>  {{ project.all_day }} Std. / {{ project.all_day_price_pro }} Euro (pro Model)</p>
+                        <p, font='times'><u><em></em></u>  {{ over_price_pro }} pro Std.</p>
+                        <p, font='times 24'><u><em>Model:</em></u> {{ project.attachment }}</p>
+                        <p, font='times 24'>zzgl. Buyout, Agenturhonorar und anfallende Reisekosten</p>
+                        <p, font='times 24'><strong> Buyout -all in-</p></strong>
+                        <p, font='times 24'><u><em>Nutzung:</em></u> alle Print- & Onlinemedien, weltweit, unbegrenzt</p>
+                        <p, font='times 24'>350% auf das Modelhonorar (= {{ project.all_in_price_pro }} Euro)</p>
+                    {% endif %}
+                    
+                    {% if project.all_day_price_semipro  %}    
+                         <strong><h4><LI> Modelhonorar Semi-Profi</h4></strong>
 
-                <OL>          
-                             <strong><h4><LI> Modelhonorar Profi</h4></strong>
-
-                            <p, font='times'><u><em>Buchung/Honorar:<br></em></u>  {{ project.half_day }} Std. / {{ project.half_day_price_pro }} Euro (pro Model)</p>
-                            <p, font='times'><u><em></em></u>  {{ project.all_day }} Std. / {{ project.all_day_price_pro }} Euro (pro Model)</p>
-                            <p, font='times'><u><em></em></u>  {{ over_price_pro }} pro Std.</p>
-                            <p, font='times 24'><u><em>Model:</em></u> {{ project.attachment }}</p>
-                            <p, font='times 24'>zzgl. Buyout, Agenturhonorar und anfallende Reisekosten</p><br/>
-                            <ul>
-                             <p, font='times 24'><strong><li> Buyout -all in-</p></strong>
-                            <p, font='times 24'><u><em>Nutzung:</em></u> alle Print- & Onlinemedien, weltweit, unbegrenzt</p>
-                            <p, font='times 24'>350% auf das Modelhonorar (= {{ project.all_in_price_pro }} Euro)</p>
-                             <hr class='hrItem' />
-                            </ul>
-
-                             <strong><h4><LI> Modelhonorar Semi-Profi</h4></strong>
-
-                            <p, font='times'><u><em>Buchung/Honorar:<br></em></u>  {{ project.half_day }} Std. / {{ project.half_day_price_semipro }} Euro (pro Model)</p>
-                            <p, font='times'><u><em></em></u>  {{ project.all_day  }} Std. / {{ project.all_day_price_semipro}} Euro (pro Model)</p>
-                            <p, font='times'><u><em></em></u>  {{ over_price_pro }} pro Std.</p>
-
-                            <p, font='times 24'><u><em>Model:</em></u> {{ project.attachment }}</p>
-                            <p, font='times 24'>zzgl. Buyout, Agenturhonorar und anfallende Reisekosten</p><br>
-                            <ul><p, font='times 24'><strong><li> Buyout -all in-</p></strong></ul></l>
-                            <p, font='times 24'><u><em>Nutzung:</em></u> alle Print- & Onlinemedien, weltweit, unbegrenzt</p>
-                            <p, font='times 24'>350% auf das Modelhonorar = {{ project.all_in_price_semipro }}  Euro</p>
-                            
+                        <p, font='times'><u><em>Buchung/Honorar:</em></u></p>
+                        </u>  {{ project.half_day }} Std. / {{ project.half_day_price_semipro }} Euro (pro Model)</p>
+                        <p, font='times'><u><em></em></u>  {{ project.all_day  }} Std. / {{ project.all_day_price_semipro}} Euro (pro Model)</p>
+                        <p, font='times'><u><em></em></u>  {{ over_price_pro }} pro Std.</p>
+                        <p, font='times 24'><u><em>Model:</em></u> {{ project.attachment }}</p>
+                        <p, font='times 24'>zzgl. Buyout, Agenturhonorar und anfallende Reisekosten</p>
+                        <p, font='times 24'><strong>Buyout -all in-</p></strong>
+                        <p, font='times 24'><u><em>Nutzung:</em></u> alle Print- & Onlinemedien, weltweit, unbegrenzt</p>
+                        <p, font='times 24'>350% auf das Modelhonorar = {{ project.all_in_price_semipro }}  Euro</p>
+                    {% endif %}
 
          </td>
          <td>
                 <div class=segun_pa>
-                    <p>Modelbooking . styling . make-up<br>
-                       Setmanagement  . Locationscounting<br>
+                  <p>Modelbooking . styling . make-up<br>
+                       Setmanagement . Locationscounting<br>
                  </div><br>
                  <div class=coco>
                      Dela Jaekel-Francesca Smith<br>
@@ -185,66 +180,73 @@ body {
              </td>
          </tr>
 </table>
-            <strong><h4><LI> Agenturhonorar</h4> </strong>
 
+
+            {% if project.honorary_base  %}  
+            <strong><h4><LI> Agenturhonorar</h4> </strong>
             <p, font='times'>20% auf das Modelhonorar und Buyouts (={{ project.honorary_base }})</p>
             <p, font='times'>15% auf das Modelhonorar und Buyouts (bei einer buchung ab {{ project.quantity_models_honorary_plus }} Models) ({{ project.honorary_plus }}) </p>
-            <hr class='hrItem' />
+            {% endif %}
 
-
+            {% if project.ms_price  %}
             <strong><h4><LI> Make-up & Styling on Set</h4></strong>
             <p, font='times'>{{ project.ms_hours }} Std. / {{ project.ms_price }} Euro</p>
             <p, font='times'>{{ project.attachment.makeup}}</p>
             <p, font='times'>Wer:Make-up & Styling am Set, Wunschgesichter-Team</p>
-
-             <hr class='hrItem' />
-
+             {% endif %}
+             
+             {% if project.photo_price  %}
              <strong><h4><LI> Photographer </h4></strong>
             <p, font='times'>{{ project.photo_hours }} Std. / {{ project.photo_price }} Euro</p>
             <p, font='times'>{{ project.attachment.photographer}}</p>
             <p, font='times'> Wer: Photo pro GmbH</p>
+             {% endif %}
 
-             <hr class='hrItem' />
-             
+             {% if project.other_title  %}
+             <strong><h4><LI> Other:{{ project.other_title }}</h4></strong>
+            <p, font='times'>{{ project.other_price }} / {{ project.other_hours }} Euro</p>
+            <p, font='times'>{{ project.other_description }}</p>
+            <p, font='times'>(Aufbügeln, Zusammenstellen, Sortieren, Rücktransport...)</p>
+            <p, font='times'>Stundenaufwand: {{ project.mrequirement_hours }} Stunden</p>
+             {% endif %}
+
+             {% if project.requirement_price  %}
             <strong><h4><LI> Beschaffung von Requisiten</h4></strong>
             <p, font='times'>{{ project.requirement_price }} Euro</p>
             <p, font='times'>Beschaffung, Organisation von Requisiten und Bekleidung,</p>
             <p, font='times'>(Aufbügeln, Zusammenstellen, Sortieren, Rücktransport...)</p>
             <p, font='times'>Stundenaufwand: {{ project.mrequirement_hours }} Stunden</p>
-            <hr class='hrItem' />
+             {% endif %}
 
-            <strong><h4><LI> {{ project.oder_title }}</h4></strong>
-            <p, font='times'>{{ project.other_price }} / {{ project.other_hours }} Euro</p>
-            <p, font='times'>{{ project.other_description }}</p>
-            <p, font='times'>(Aufbügeln, Zusammenstellen, Sortieren, Rücktransport...)</p>
-            <p, font='times'>Stundenaufwand: {{ project.mrequirement_hours }} Stunden</p>
-            <hr class='hrItem' />
+            
+          
 
-
+             {% if project.requisiten_price_for_each_model  %}
             <strong><h4><LI> Requisiten</h4></strong>
             <p, font='times'>{{ project.requisiten_price_for_each_model }} Euro</p>
             <p, font='times'>Requisiten die nicht zurückgegeben werden können:</p>
             <p, font='times'>Schuhe (3), Blazer, Schmuck, Uhr, Hose (4), Bluse, Kittel,</p>
             <p, font='times'>Haarnetz, Gürtel, Taschenlampe, Klemmbretter</p>
-            <hr class='hrItem' />
+             {% endif %}
 
+             {% if project.attachment.cost  %}
+               <strong><h4><LI> Reisekosten</h4></strong>
+               <p, font='times'>448,19 Euro</p>
+                <p, font='times'>Julia: HB-HH-HB = 61 Euro</p>
+                <p, font='times'>Andreas W.: MUC-HB-MUC = 278,69 Euro, Taxi = 30 Euro</p>
+                <p, font='times'>Hotel: Motel One, 1 x Einzelzimmer = 78,50 Euro</p>
+            {% endif %}
 
-           <strong><h4><LI> Reisekosten</h4></strong>
-           <p, font='times'>448,19 Euro</p>
-            <p, font='times'>Julia: HB-HH-HB = 61 Euro</p>
-            <p, font='times'>Andreas W.: MUC-HB-MUC = 278,69 Euro, Taxi = 30 Euro</p>
-            <p, font='times'>Hotel: Motel One, 1 x Einzelzimmer = 78,50 Euro</p>
-            <hr class='hrItem' />
 
             <strong><h4>Summe</h4></strong>
             <p, font='times'>8.249,90 Euro</p>
             <p, font='times'>{{ project.tax }} % Mehrwertsteuer 1.567,48 Euro</p>
             <p, font='times'>Gesamt {{ project.total_price }} Euro </p>
-            <hr class='hrItem'>
+           
 
 <!-- condiciones -->           
             Das Zahlungsziel ist 10 Tage nach Rechnungsdatum.
-            Ich bedanke mich für den Auftrag und die Zusammenarbeit.<br>
+            Ich bedanke mich für den Auftrag und die Zusammenarbeit.
             
 <!-- firma de CEO --> 
             <div class="firma">
