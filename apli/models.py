@@ -2,6 +2,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save, post_save
+from .utils import unique_slug_generator
 
 
 class Person(models.Model):
@@ -34,6 +36,7 @@ class Person(models.Model):
     bank_account    = models.CharField(validators=[bank_regex], max_length=27)
     IBAN            = models.CharField(max_length=200, blank=True)
     website         = models.CharField(max_length=200, blank=True)
+    slug            = models.SlugField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'Person'
@@ -45,6 +48,25 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def title(self):
+        return self.name
+
+    def rl_pre_save_receiver(sender,instance, *args, **kwargs):
+        if not instance.slug:
+            instance.name ="blabla"
+            instance.slug = unique_slug_generator(instance)
+
+    # def rl_post_save_receiver(sender,instance, *args, **kwargs):
+    #     if not instance.slug:
+    #         instance.slug = unique_slug_generator(instance)
+    #         instance.save()
+
+    # pre_save.connect(rl_pre_save_receiver, sender=Person)
+
+    # post_save.connect(rl_post_save_receiver, sender=Person)
+
 
 
 class Project(models.Model):

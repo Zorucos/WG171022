@@ -36,7 +36,7 @@ urlpatterns = [
 	# PERSON: index, detail, create, update, delete.
 
 	url(r'^person$', views.person_index, name='person_index'),
-
+   # url(r'^person/(?P<slug>[\w-]+)/$', views.person_detail, name='person_detail'),
 	url(r'^person/(?P<pk>[0-9]+)/$', views.person_detail, name='person_detail'),
     url(r'^person/new/$', views.PersonCreate.as_view(), name='person_new'),
     url(r'^person/(?P<pk>[0-9]+)/update/$', views.PersonUpdate.as_view(), name='person_update'),

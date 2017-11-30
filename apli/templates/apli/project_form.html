@@ -4,28 +4,30 @@
 
 {% block body %}
 	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
+		<div class="form-group">
+			<div class="col-md-12">
 			    <p><h1 class="container "> Neuer Angebot /  Auftrag / job erstellen </h1></p>
 			    <br>
-				<div class="">
-					<div class="panel-body container">
+			    </div>
+					<div class="">
+					
+							<form class="" action="" method="post" enctype="multipart/form-data">
+									
+									{% csrf_token %}
+									{% include 'apli/form-template.html' %}
+									
+								<div class="form-group ">
+									<div class="col-sm-offset-2 col-md-3">
+										<button type="submit" class="btn btn-lg col-md-5 btn-success">Submit</button>
+									    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md pull-right" data-dismiss="modal" >Stornieren</a>
+									</div>
 
-						<form class="form-horizontal container" action="" method="post" enctype="multipart/form-data">
-							{% csrf_token %}
-							{% include 'apli/form-template.html' %}
-							<div class="form-group ">
-								<div class="col-sm-offset-2 col-md-3">
-									<button type="submit" class="btn btn-lg col-md-5 btn-success">Submit</button>
-								    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md pull-right" data-dismiss="modal" >Stornieren</a>
 								</div>
+							</form>
 
-							</div>
-						</form>
-
+						
 					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 {% endblock %}
