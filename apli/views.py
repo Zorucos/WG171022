@@ -33,6 +33,12 @@ from io import BytesIO #pdf
 from xhtml2pdf import pisa # pdf
 from datetime import date #pdf ocupa date
 from django.core.files.base import ContentFile #Adjuntar pdf email algo asi
+
+
+#froms
+
+from apli.forms import PersonForm
+
 #--------------------------
 # INDICE (ordenar alfabéticamente)
 # 1-assignment 
@@ -46,6 +52,9 @@ from django.core.files.base import ContentFile #Adjuntar pdf email algo asi
 
 
 
+def formset_view(request):
+
+    return render(request, "formset_view.html",{})
 
 
 
@@ -67,7 +76,6 @@ def assignment_detail(request, pk):
 
 class AssignmentCreate(LoginRequiredMixin, CreateView):
     model = Assignment
-
     fields = ['project',
             'person',
             'model_type',
@@ -80,6 +88,17 @@ class AssignmentCreate(LoginRequiredMixin, CreateView):
             'payment_date',
             'total_price'
             ]
+        # labels = {
+        #         'comment_WG': "this is the model"
+        # }
+        # help_text = {
+        #         'comment_WG': "this is the model"
+        # }
+        # error_messages = {
+        #         'comment_WG': {
+        #         #"required": "is required"
+        #         }
+        # }
 
 class AssignmentUpdate(LoginRequiredMixin, UpdateView):
     model = Assignment
@@ -100,6 +119,42 @@ class AssignmentUpdate(LoginRequiredMixin, UpdateView):
 class AssignmentDelete(LoginRequiredMixin, DeleteView):
     model = Assignment
     success_url = reverse_lazy('assignment_index')
+
+
+
+def assignment_timetable_send(request, pk):
+    assignment = get_object_or_404(Assignment, id=pk)
+
+    all_persons = project.assignment_set.all()
+    all_attachments = project.attachment_set.all()
+    all_costs = project.cost_set.all()
+
+    # debo crear el attachment
+    template = get_template('menu/timetable_model/timetable_model.html')
+    context = {"project": project, }
+    html = template.render(context)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+
+    at = Attachment(project=project, sort=project.sort, send_date = date.today())
+
+    at.file.save('nombre.pdf', ContentFile(result.getvalue()))
+    at.save()
+
+    context2 = {"project": project, }
+    subject, from_email, to = 'ANGEBOT', 'base.EMAIL_HOST_USER', project.client.email
+    text_content = 'This is an important message.'
+    htmly = get_template('apli/menu/mail/mail_cotization.html')
+    html_content = htmly.render(context2)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    reply_to=["ismaelsorucoi@gmail.com"] 
+    msg.attach_alternative(html_content, "text/html")
+    msg.attach(at.file.name, result.getvalue(), )
+    msg.send()
+    return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
+   
+    
+
 
 
 
@@ -182,7 +237,28 @@ def dashboard(request):
     
     
     return render(request, 'apli/menu/dashboard/dashboard.html', {'all_projects': all_projects, 'all_persons': all_persons})
+#################################################################
 
+
+
+
+#HORAIRE
+
+
+
+class create_time_assignment(LoginRequiredMixin, CreateView):
+    model = Horaire
+    fields = ['assignment', 'date', 'start_time', 'finish_time']
+
+
+class edit_time_assignment(LoginRequiredMixin, UpdateView):
+    model = Horaire
+    fields = ['assignment', 'date', 'start_time', 'finish_time']
+
+
+class delete_time_assignment(LoginRequiredMixin, DeleteView):
+    model = Horaire
+    success_url = reverse_lazy('index_project')
 ###################################################################
 
 # MAIL MAIL MAIL 
@@ -273,58 +349,28 @@ def person_detail(request, pk):
 
 
 class PersonCreate(LoginRequiredMixin, CreateView):
-    model = Person
-    fields = ['name',
-            'name_short',
-            'company',
-            'company_short',
-            'country',
-            'city',
-            'zip_code',
-            'address',
-            'email',
-            'phone',
-            'comment',
-            'birthday',
-            'agent',
-            'client',
-            'model',
-            'photographe',
-            'make_up',
-            'styling',
-            'other',
-            'comment_other',
-            'sedcard_cost',
-            'bank_account',
-            'website'
-            ]
+    template_name = "apli/person_form.html"
+    prefix = "hola"
+    form_class = PersonForm
+
+    #model = Person
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(PersonCreate, self).form_valid(form)
+        
+
+            
 
 class PersonUpdate(LoginRequiredMixin, UpdateView):
     model = Person
-    fields = ['name',
-            'name_short',
-            'company',
-            'company_short',
-            'country',
-            'city',
-            'zip_code',
-            'address',
-            'email',
-            'phone',
-            'comment',
-            'birthday',
-            'agent',
-            'client',
-            'model',
-            'photographe',
-            'make_up',
-            'styling',
-            'other',
-            'comment_other',
-            'sedcard_cost',
-            'bank_account',
-            'website'
-            ]
+    template_name = "apli/person_form.html"
+    form_class = PersonForm
+
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+        return  super(PersonUpdate, self).form_valid(form)
+       
 
 class PersonDelete(LoginRequiredMixin, DeleteView):
     model = Person
@@ -359,7 +405,9 @@ def project_detail(request, pk):
     return render(request, 'apli/menu/project/project_detail.html', {'project': project, 'all_persons': all_persons, 'all_attachments': all_attachments, 'all_costs': all_costs})
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
+    
     model = Project
+    
     fields = ['name',
             'client',
             'start',

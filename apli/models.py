@@ -4,39 +4,42 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save, post_save
 from .utils import unique_slug_generator
+from django.conf import settings
 
 
 class Person(models.Model):
-    name            = models.CharField(max_length=200)
-    name_short      = models.CharField(max_length=100, blank=True)
-    company         = models.CharField(max_length=200, blank=True)
-    company_short   = models.CharField(max_length=100, blank=True)
-    country         = models.CharField(max_length=50, blank=True)
-    city            = models.CharField(max_length=50, blank=True)
-    zip_code        = models.CharField(max_length=15, blank=True)
-    address         = models.CharField(max_length=100, blank=True)
-    email           = models.EmailField()
+    name            = models.CharField(max_length=20, verbose_name="Name", default="")
+    name_short      = models.CharField(max_length=100, blank=True, verbose_name="Kurs Name")
+    company         = models.CharField(max_length=200, blank=True, verbose_name="Firma")
+    company_short   = models.CharField(max_length=100, blank=True, verbose_name="Kurs firma Name")
+    country         = models.CharField(max_length=50, blank=True, verbose_name="Land")
+    city            = models.CharField(max_length=50, blank=True, verbose_name="Stadt")
+    zip_code        = models.CharField(max_length=15, blank=True, verbose_name="code")
+    address         = models.CharField(max_length=100, blank=True, verbose_name="Adresse")
+    email           = models.EmailField(verbose_name="E-mail")
     phone_regex     = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone           = models.CharField(validators=[phone_regex], max_length=15)
-    comment         = models.CharField(max_length=500, blank=True)
-    birthday        = models.DateField(null=True, blank=True)
-    agent           = models.CharField(max_length=200, blank=True)
-    agent_short     = models.CharField(max_length=100, blank=True)
-    client          = models.BooleanField(default=False)
-    model           = models.BooleanField(default=False)
-    photographe     = models.BooleanField(default=False)
-    make_up         = models.BooleanField(default=False)
-    styling         = models.BooleanField(default=False)
-    other           = models.BooleanField(default=False)
-    comment_other   = models.CharField(max_length=200, blank=True)
-    sedcard_cost    = models.IntegerField(null=True, blank=True)
-    sedcard_payed   = models.IntegerField(null=True, blank=True)
-    sedcard_statut  = models.BooleanField(default=False)
+    phone           = models.CharField(validators=[phone_regex], max_length=15, verbose_name="Phone")
+    comment         = models.TextField(max_length=500, blank=True, verbose_name="Kommentar")
+    birthday        = models.DateField(auto_now=False, auto_now_add=False, verbose_name="Geburstag", help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+    agent           = models.CharField(max_length=200, blank=True, verbose_name="Agent")
+    agent_short     = models.CharField(max_length=100, blank=True, verbose_name="Kurs Agentname")
+    client          = models.BooleanField(default=False, verbose_name="Kunde")
+    model           = models.BooleanField(default=False, verbose_name="Modell")
+    photographe     = models.BooleanField(default=False, verbose_name="Photograph")
+    make_up         = models.BooleanField(default=False, verbose_name="Make-up")
+    styling         = models.BooleanField(default=False, verbose_name="Styling")
+    other           = models.BooleanField(default=False, verbose_name="Andere")
+    comment_other   = models.CharField(max_length=200, blank=True, verbose_name="Kommentar von andere")
+    sedcard_cost    = models.IntegerField(null=True, blank=True, verbose_name="Kost")
+    sedcard_payed   = models.IntegerField(null=True, blank=True, verbose_name="Sedcard")
+    sedcard_statut  = models.BooleanField(default=False, verbose_name="Sedcard Status")
     bank_regex      = RegexValidator(regex=r'^DE\d{2}\s?([0-9a-zA-Z]{4}\s?){4}[0-9a-zA-Z]{2}$', message="Bank account must be entered in the format: 'DE12 3456 7890 1234 5678 90'. Up to 27 digits allowed.")
-    bank_account    = models.CharField(validators=[bank_regex], max_length=27)
-    IBAN            = models.CharField(max_length=200, blank=True)
-    website         = models.CharField(max_length=200, blank=True)
+    bank_account    = models.CharField(validators=[bank_regex], max_length=27, verbose_name="Konto")
+    IBAN            = models.CharField(max_length=200, blank=True, verbose_name="IBAN")
+    website         = models.URLField(max_length=200, blank=True, verbose_name="website")
     slug            = models.SlugField(null=True, blank=True)
+    last_edited_by  = models.ForeignKey(User, null=True, blank=True, related_name='person_edit')
+    added_by        = models.ForeignKey(User, null=True, blank=True, related_name='person_add')
 
     class Meta:
         verbose_name = 'Person'
@@ -48,6 +51,11 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def clean_website(self, *args, **kwargs)
+    #     website = self.cleaned_data.get("Website")
+    #     print(website)
+    #     raise forms.
 
     @property
     def title(self):
@@ -63,7 +71,7 @@ class Person(models.Model):
     #         instance.slug = unique_slug_generator(instance)
     #         instance.save()
 
-    # pre_save.connect(rl_pre_save_receiver, sender=Person)
+    #pre_save.connect(rl_pre_save_receiver, sender=Person)
 
     # post_save.connect(rl_post_save_receiver, sender=Person)
 
@@ -143,7 +151,7 @@ class Attachment(models.Model):
 
 
 class Assignment(models.Model):
-    project             = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project             = models.ForeignKey(Project, on_delete=models.CASCADE, default=1)
     person              = models.ForeignKey(Person, on_delete=models.CASCADE)
     model_type          = models.CharField(max_length=14, choices=(('pro', 'pro'), ('semipro', 'semipro'),), default='pro')
     travel_cost         = models.IntegerField(null=True, blank=True)
@@ -181,7 +189,7 @@ class Horaire(models.Model):
         verbose_name_plural = 'Horaires'
 
     def get_absolute_url(self):
-        return reverse('horaire_detail', kwargs={'pk': self.pk})
+        return reverse('assignment_detail', kwargs={'pk': self.pk})
 
 
 class Cost(models.Model):

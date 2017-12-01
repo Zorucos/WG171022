@@ -2,24 +2,19 @@
 {% block title %}Add a Model{% endblock %}
 {% block models_active %}active{% endblock %}
 
-{% block body %}
+{% block body %} 
 	<div class="container">
 		<div class="panel-body container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-9,1">
 				    <p><h1 class="container "> Neuer Kontakt erstellen </h1></p>
 				    <br>
 					<div class="">
 						
 
 							<form class="form-horizontal container" action="" method="post" enctype="multipart/form-data">
-								{% csrf_token %}
+								
 								{% include 'apli/form-template.html' %}
-								<div class="form-group ">
-									<div class="col-sm-offset-2 col-md-3">
-										<button type="submit" class="btn btn-dm col-md-5 btn-success">Submit</button>
-									    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md pull-right" data-dismiss="modal" >Stornieren</a>
-									</div>
 
 								</div>
 							</form>

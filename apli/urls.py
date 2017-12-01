@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 
 
+
 urlpatterns = [
     #ORDENAR ALFABETICAMENTE
 
@@ -13,7 +14,7 @@ urlpatterns = [
     url(r'^assignment/new/$', views.AssignmentCreate.as_view(), name='assignment_new'),
     url(r'^assignment/(?P<pk>[0-9]+)/update/$', views.AssignmentUpdate.as_view(), name='assignment_update'),
     url(r'^assignment/(?P<pk>[0-9]+)/delete/$', views.AssignmentDelete.as_view(), name='assignment_delete'),
-    #url(r'^assignment/(?P<pk>[0-9]+)/send/$', views.Assignment_send, name='assignment_send'),
+    url(r'^assignment/(?P<pk>[0-9]+)/send/$', views.assignment_timetable_send, name='assignment_timetable_send'),
 	
     #BUSCAR 
 
@@ -28,6 +29,13 @@ urlpatterns = [
 
 	#DASHBOARD: index
 	url(r'^dashboard$', views.dashboard, name='dashboard'),
+
+    # TIMETABLE
+    url(r'^time/new/$', views.create_time_assignment.as_view(), name='create_time_assignment'),
+    url(r'^time/(?P<pk>[0-9]+)/update/$', views.edit_time_assignment.as_view(), name='edit_time_assignment'),
+    url(r'^time/(?P<pk>[0-9]+)/delete/$', views.delete_time_assignment.as_view(), name='delete_time_assignment'),
+
+
 
     #MAIL
     url(r'^project/(?P<pk>[0-9]+)/send/$', views.project_quotation_send, name='project_quotation_send'),
@@ -50,6 +58,10 @@ urlpatterns = [
     url(r'^project/new/$', views.ProjectCreate.as_view(), name='project_new'),
     url(r'^project/(?P<pk>[0-9]+)/update/$', views.ProjectUpdate.as_view(), name='project_update'),
     url(r'^project/(?P<pk>[0-9]+)/delete/$', views.ProjectDelete.as_view(), name='project_delete'),
+
+    url(r'^$', views.formset_view) 
+
+
 
 
 ]

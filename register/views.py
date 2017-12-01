@@ -16,7 +16,7 @@ from register.tokens import account_activation_token # register
 from django.contrib.auth.models import User # register
 from django.utils.encoding import force_text # register
 from django.utils.http import urlsafe_base64_decode # register
-
+from apli.models import Person, Project, Attachment, Assignment, Horaire, Cost, Time
 
 User = get_user_model()
 
@@ -80,19 +80,27 @@ def account_activation_complete(request):
     #en teoria lo siguiente no se necesita, pero lo dejo por si las mosca...deberia ser automatico con auth_views
 
 # def password_reset_complete(request):
-# 	return render(request, 'password_reset_complete.html', )
+#   return render(request, 'password_reset_complete.html', )
 
 # def password_reset_confirm(request):
-# 	return render(request, 'password_reset_confirm.html', )
+#   return render(request, 'password_reset_confirm.html', )
 
 # def password_reset_done(request):
-# 	return render(request, 'password_reset_done.html', )
+#   return render(request, 'password_reset_done.html', )
 
 # def password_reset_email(request):
-# 	return render(request, 'password_reset_email.html', )
+#   return render(request, 'password_reset_email.html', )
 
 # def password_reset(request):
-# 	return render(request, 'password_reset_form.html', )
-	
+#   return render(request, 'password_reset_form.html', )
+
+
+
+##########################################################################################
+
+
+
+
+
 
 

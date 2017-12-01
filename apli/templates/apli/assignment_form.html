@@ -12,15 +12,9 @@
 					<div class="panel-body container">
 
 						<form class="form-horizontal container" action="" method="post" enctype="multipart/form-data">
-							{% csrf_token %}
+							
 							{% include 'apli/form-template.html' %}
-							<div class="form-group ">
-								<div class="col-sm-offset-2 col-md-3">
-									<button type="submit" class="btn btn-dm col-md-5 btn-success">Submit</button>
-								    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md pull-right" data-dismiss="modal" >Stornieren</a>
-								</div>
-
-							</div>
+						
 						</form>
 
 					</div>
