@@ -5,7 +5,7 @@ YEARS = [x for x in range(1980,2031)]
 
 class PersonForm(forms.ModelForm):
     birthday = forms.DateField(initial="2010-11-20", widget=forms.SelectDateWidget(years=YEARS))
-    name = forms.CharField(initial="", label="Person Name")
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}), initial="", label="Person Name")
     comment = forms.CharField(widget=forms.Textarea(attrs={"rows": 4, "cols": 22}))
     class Meta:
         model=Person
