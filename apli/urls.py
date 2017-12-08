@@ -7,6 +7,7 @@ urlpatterns = [
     #ORDENAR ALFABETICAMENTE
 
    #ASSIGNMENT: index, detail, create, update, delete.
+    url(r'^apli/leu/$', views.apli, name='apli'),
 
     url(r'^assignment/$', views.assignment_index, name='assignment_index'),
 
@@ -28,12 +29,17 @@ urlpatterns = [
     url(r'^cost/(?P<pk>[0-9]+)/delete/$', views.CostDelete.as_view(), name='cost_delete'),
 
 	#DASHBOARD: index
-	url(r'^dashboard$', views.dashboard, name='dashboard'),
+	url(r'^dashboard/$', views.dashboard, name='dashboard'),
 
-    # TIMETABLE
+    # TIMETABLE HORAIRE
     url(r'^time/new/$', views.create_time_assignment.as_view(), name='create_time_assignment'),
     url(r'^time/(?P<pk>[0-9]+)/update/$', views.edit_time_assignment.as_view(), name='edit_time_assignment'),
     url(r'^time/(?P<pk>[0-9]+)/delete/$', views.delete_time_assignment.as_view(), name='delete_time_assignment'),
+
+    # TIME work in generall 
+    url(r'^timework/new/$', views.create_time_work.as_view(), name='create_time_work'),
+    url(r'^timework/(?P<pk>[0-9]+)/update/$', views.edit_time_work.as_view(), name='edit_time_work'),
+    url(r'^timework/(?P<pk>[0-9]+)/delete/$', views.delete_time_work.as_view(), name='delete_time_work'),
 
 
 

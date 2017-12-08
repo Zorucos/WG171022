@@ -20,9 +20,6 @@ from .tables import PersonTable #TaBLA
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
-
-
 # para mandar email
 from django.core.mail import send_mail # send email
 from django.contrib import messages 
@@ -37,7 +34,7 @@ from django.core.files.base import ContentFile #Adjuntar pdf email algo asi
 
 #froms
 
-from apli.forms import PersonForm
+from apli.forms import PersonForm, ProjectForm, CostForm, AttachmentForm, HoraireForm, AssignmentForm, TimeForm
 
 #--------------------------
 # INDICE (ordenar alfabéticamente)
@@ -55,6 +52,10 @@ from apli.forms import PersonForm
 def formset_view(request):
 
     return render(request, "formset_view.html",{})
+
+def apli(request):
+
+    return render(request, "menu/apli.html")
 
 
 
@@ -75,19 +76,15 @@ def assignment_detail(request, pk):
     return render(request, 'apli/menu/assignment/assignment_detail.html', {'assignment': assignment, 'all_horaire': all_horaire})
 
 class AssignmentCreate(LoginRequiredMixin, CreateView):
-    model = Assignment
-    fields = ['project',
-            'person',
-            'model_type',
-            'travel_cost',
-            'hotel_cost',
-            'other_cost',
-            'comment_WG',
-            'statut',
-            'send_date',
-            'payment_date',
-            'total_price'
-            ]
+
+    template_name = "apli/assignment_form.html"
+    form_class = AssignmentForm
+    
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(AssignmentCreate, self).form_valid(form)
+    
         # labels = {
         #         'comment_WG': "this is the model"
         # }
@@ -102,18 +99,15 @@ class AssignmentCreate(LoginRequiredMixin, CreateView):
 
 class AssignmentUpdate(LoginRequiredMixin, UpdateView):
     model = Assignment
-    fields = ['project',
-            'person',
-            'model_type',
-            'travel_cost',
-            'hotel_cost',
-            'other_cost',
-            'comment_WG',
-            'statut',
-            'send_date',
-            'payment_date',
-            'total_price'
-            ]
+    template_name = "apli/assignment_form.html"
+    form_class = AssignmentForm
+
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+
+        return  super(AssignmentUpdate, self).form_valid(form)
+
+    
 
 
 class AssignmentDelete(LoginRequiredMixin, DeleteView):
@@ -146,7 +140,7 @@ def assignment_timetable_send(request, pk):
     text_content = 'This is an important message.'
     htmly = get_template('apli/menu/mail/mail_cotization.html')
     html_content = htmly.render(context2)
-    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])   
     reply_to=["ismaelsorucoi@gmail.com"] 
     msg.attach_alternative(html_content, "text/html")
     msg.attach(at.file.name, result.getvalue(), )
@@ -200,26 +194,23 @@ def cost_detail(request, pk):
     return render(request, 'apli/menu/cost/cost_detail.html', {'cost': cost})
 
 class CostCreate(LoginRequiredMixin, CreateView):
-    model = Cost
-    fields = ['user',
-             'project',
-             'comment',
-             'date',
-             'amount',
-             'title',
-             'statut'
-             ]
+    template_name = "apli/cost_form.html"
+    form_class = CostForm
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(CostCreate, self).form_valid(form)
+ 
 
 class CostUpdate(LoginRequiredMixin, UpdateView):
     model = Cost
-    fields = ['user',
-             'project',
-             'comment',
-             'date',
-             'amount',
-             'title',
-             'statut'
-             ]
+    template_name = "apli/cost_form.html"
+    form_class = CostForm
+
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+        return  super(CostUpdate, self).form_valid(form)
+
 
 
 class CostDelete(LoginRequiredMixin, DeleteView):
@@ -242,24 +233,64 @@ def dashboard(request):
 
 
 
-#HORAIRE
-
-
+#HORAIRE assignment
 
 class create_time_assignment(LoginRequiredMixin, CreateView):
-    model = Horaire
-    fields = ['assignment', 'date', 'start_time', 'finish_time']
+
+    template_name = "apli/horaire_form.html"
+    form_class = HoraireForm
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(create_time_assignment, self).form_valid(form)
 
 
 class edit_time_assignment(LoginRequiredMixin, UpdateView):
+
     model = Horaire
-    fields = ['assignment', 'date', 'start_time', 'finish_time']
+    template_name = "apli/horaire_form.html"
+    form_class = HoraireForm
+
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+        return  super(edit_time_assignment, self).form_valid(form)
+
+
 
 
 class delete_time_assignment(LoginRequiredMixin, DeleteView):
     model = Horaire
     success_url = reverse_lazy('index_project')
 ###################################################################
+
+#TIME WORK 
+
+class create_time_work(LoginRequiredMixin, CreateView):
+
+    template_name = "apli/time_form.html"
+    form_class = TimeForm
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(create_time_work, self).form_valid(form)
+ 
+class edit_time_work(LoginRequiredMixin, UpdateView):
+
+    model = Time
+    template_name = "apli/time_form.html"
+    form_class = TimeForm
+
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+        return  super(edit_time_work, self).form_valid(form)
+
+class delete_time_work(LoginRequiredMixin, DeleteView):
+    model = Time
+    success_url = reverse_lazy('index_project')
+
+
+
+###############################################################
 
 # MAIL MAIL MAIL 
 
@@ -336,9 +367,13 @@ def project_quotation_send(request, pk):
 
 @login_required(login_url='/register/login/')
 def person_index(request):
-    table = PersonTable(Person.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'apli/menu/person/person_index.html', {'table': table})
+     all_persons = Person.objects.all()
+     return render(request, 'apli/menu/person/person_index.html', {'all_persons': all_persons})
+
+
+    # table = PersonTable(Person.objects.all())
+    # RequestConfig(request).configure(table)
+    #return render(request, 'apli/menu/person/person_index.html', {'table': table})
     
 
 @login_required(login_url='/register/login/')
@@ -349,8 +384,8 @@ def person_detail(request, pk):
 
 
 class PersonCreate(LoginRequiredMixin, CreateView):
+
     template_name = "apli/person_form.html"
-    prefix = "hola"
     form_class = PersonForm
 
     #model = Person
@@ -384,15 +419,7 @@ class PersonDelete(LoginRequiredMixin, DeleteView):
 @login_required(login_url='/register/login/')
 def project_index(request):
     all_projects = Project.objects.all()
-    paginator = Paginator(all_projects, 10)
-    page = request.GET.get('page', 1)
-    
-    try:
-        all_projects = paginator.page(page)
-    except PageNotAnInteger:
-        all_projects = paginator.page(1)
-    except EmptyPage:
-        all_projects = paginator.page(paginator.num_pages)
+   
 
     return render(request, 'apli/menu/project/project_index.html', {'all_projects': all_projects})
     
@@ -406,52 +433,23 @@ def project_detail(request, pk):
 
 class ProjectCreate(LoginRequiredMixin, CreateView):
     
-    model = Project
+    template_name = "apli/project_form.html"
+    form_class = ProjectForm
+
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return  super(ProjectCreate, self).form_valid(form)
     
-    fields = ['name',
-            'client',
-            'start',
-            'finish',
-            'user',
-            'comment',
-            'sort',
-            'all_day',
-            'half_day',
-            'half_day_price_pro',
-            'all_day_price_pro',
-            'over_price_pro',
-            'all_in_price_pro',
-            'half_day_price_semipro',
-            'all_day_price_semipro',
-            'over_price_semipro',
-            'all_in_price_semipro',
-            'country',
-            'city',
-            'zip_code',
-            'address',
-            'comment_address',
-            'honorary_base',
-            'honorary_plus',
-            'quantity_models_honorary_plus',
-            'ms_price',
-            'ms_hours',
-            'requirement_price',
-            'requirement_hours',
-            'requisiten_price_for_each_model',
-            'other_title',
-            'other_description',
-            'other_price',
-            'other_hours',
-            'photo_price',
-            'photo_hours',
-            'tax',
-            ]
-
-
+   
 class ProjectUpdate(LoginRequiredMixin, UpdateView):
     model = Project
-    fields = ['name', 'client', 'start', 'finish', 'user', 'comment', 'sort', 'all_day', 'half_day', 'half_day_price_pro', 'all_day_price_pro', 'over_price_pro', 'all_in_price_pro', 'half_day_price_semipro', 'all_day_price_semipro', 'over_price_semipro', 'all_in_price_semipro', 'country', 'city', 'zip_code', 'address', 'comment_address', 'honorary_base', 'honorary_plus', 'quantity_models_honorary_plus', 'ms_price', 'ms_hours', 'requirement_price', 'requirement_hours', 'requisiten_price_for_each_model', 'other_title', 'other_description', 'other_price', 'other_hours', 'photo_price', 'photo_hours', 'tax']
+    template_name = "apli/project_form.html"
+    form_class = ProjectForm
 
+    def form_valid(self, form):
+        form.instance.last_edited_by = self.request.user
+        return  super(ProjectUpdate, self).form_valid(form)
 
 class ProjectDelete(LoginRequiredMixin, DeleteView):
     model = Project

@@ -25,67 +25,87 @@
     </div>
 
     <!-- INFORMACION DE CLIENTE   -->
-    <div class= "container">
-        <br>
-        <div class="row">
-            <div class="container col-md-4">
-                <h4><b>Firma:</b> {{person.company}}</h4>
-            </div>
-            <div class="container col-md-4">
-                <h4><b>Telefonummer:</b> <a href="tel:{{ person.phone }}">{{person.phone}}</a></h4>
-            </div>
-            <div class="container  col-md-4">
-                <h4><b>Email:</b> <a href="mailto:{{ person.email }}">{{person.email}}</a></h4>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="container col-md-4">
-                <h4><b>Kunde/in Suchename:</b> {{person.name_short}}</h4>
-            </div>
-            <div class="container  col-md-4">
-                <h4><b>Firma Suchename:</b> {{person.company_short}}</h4>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="container  col-md-4">
-                <h3 class="form-control-static"><b>Adresse</b> </h3>
-            </div>
 
-            <div class="container  col-md-4">
-                <h4 class="form-control-static" ><b>Land:</b> {{person.country}}</h4>
-             </div>
 
-            <div class="container  col-md-4">
-                <h4 class="form-control-static"><b>Stadt:</b> {{person.city}}
-            </div>
 
-            </h4><div class="container  col-md-4">
-                <h4 class="form-control-static"><b>Straße:</b> {{person.address}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="container  col-md-8">
-                <h4 class="form-control-static"><b> Notiz:</b>{{person.comment}} </h4>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="form-group inline">
+             
+            <p><h4 class=" visible-lg visible-md col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Kontaktkursname:   </b>  {{ person.name_short}}   </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Firma:      </b>  {{ person.company}}      </h4></p> 
+            <p><h4 class="visible-lg visible-md col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Firmakursname:</b>  {{ person.company_short}}</h4></p>
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>E-mail:        </b><a href="mailto:{{ person.email }}">  {{ person.email}}  </a>      </h4></p>      
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Telefonnummer:        </b> <a href="tel:{{ person.phone }}"> {{ person.phone}}  </a>      </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Geburstag:     </b>  {{ person.birthday}}     </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Kommentar:      </b>  {{ person.comment}}      </h4></p>
+       </div>
+    </div>
+   <hr />
+    <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Land: </b> {{ person.country}}                </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Stadt: </b> {{ person.city}}                      </h4></p>
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Postleitzahl:</b>  {{ person.zip_code}}              </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Address: </b> {{ person.address}}                </h4></p>
+         </div>
+    </div>
+<hr />
+    <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Kunde: </b> {{ person.client}} </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Modell: </b> {{ person.model}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Photograph:</b>  {{ person.photographe}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Make_up:</b>  {{ person.make_up}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Styling: </b> {{ person.styling}}</h4></p>
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Andere: </b> {{ person.other}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Kommentar andere: </b> {{ person.comment_other}}</h4></p> 
         </div>
     </div>
-    <div class="row modal-header"></div>
-    <br>
+    <hr />
+   <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Agent: </b> {{ person.agent}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Kursname Agent: </b> {{ person.agent_short}}</h4></p> 
+        </div>
+    </div>
+<hr />
+    <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Sedcard Kost:</b>  {{person.sedcard_cost}}  </h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Sedcard payed:</b>  {{person.sedcard_payed}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Sedcard Statu: </b> {{person.sedcard_statut}}</h4></p> 
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Bank:</b> {{person.bank_account}}</h4></p> 
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>IBAN: </b> {{person.IBAN}} </h4></p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="form-group inline">
+            <p><h4 class="col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Website: </b> {{ person.website}}</h4></p> 
+            <p><h4 class="visible-lg col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Letztesausfage :</b>  {{person.last_edited_by}}</h4></p> 
+            <p><h4 class="visible-lg col-xs-12 col-sm-6 col-md-4 col-lg-4"><b>Erstellen: </b> {{person.added_by}}</h4></p> 
+        </div>
+    </div>
+
+</div>
+
+
+
 
     <!-- PANEL con TABLA  de PROYECTOS relacionados con cliente  -->
     <br>
     <div class="container">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3>Projekte vom   {{person.nombre_completo}}</h3>
-            </div>
-            <div class="panel-body">
-                {% if all_projects %}
-                    <div class="table-responsive">
-                        <table class="table table-hover  ">
-                            <tr class="active table-bordered">
+       <h3>Projekte vom   {{person.nombre_completo}}</h3>
+            {% if all_projects %}
+                <div class="table-responsive">
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active info">
                                 <th>Projektname</th>
                                 <th>Price</th>
                                 <th>Datum Start</th>
@@ -95,12 +115,12 @@
                             </tr>
                             {% for project in all_projects %}
                                 <tr>
-                                    <td><a href="{% url 'project_detail' project.id %}"><p class="form-control-static">{{project.name}}<p></a></td>
-                                    <td><a><p class="form-control-static">{{project.total_price}}<p></a></td>
-                                    <td><p class="form-control-static">{{project.start}}<p></td>
-                                    <td><p class="form-control-static">{{project.finish}}<p></td>
-                                    <td><p class="form-control-static">{{project.statut}}<p></td>
-                                    <td><p class="form-control-static">{{project.comment}}<p></td>
+                                    <td><a href="{% url 'project_detail' project.id %}"><p class="">{{project.name}}<p></a></td>
+                                    <td><a><p class="">{{project.total_price}}<p></a></td>
+                                    <td><p class="">{{project.start}}<p></td>
+                                    <td><p class="">{{project.finish}}<p></td>
+                                    <td><p class="">{{project.statut}}<p></td>
+                                    <td><p class="">{{project.comment}}<p></td>
                                 </tr>
                             {% endfor %}
                         </table>
@@ -113,3 +133,37 @@
         </div>
     </div>
 {% endblock %}
+
+
+<div class="container">
+        <br>
+        <h4>Projekte</h4>
+         {% if all_projects %}
+            <div class="table-responsive">
+                <table class="table  table-hover table-condensed">
+                    <tr class="active">
+                        <th class="">Projektname</th>
+                        <th class="">Start Datum</th>
+                        <th class="">End Datum</th>
+                        <th class="">Status</th>
+                        <th class="">Kommentar</th>
+                    </tr>
+
+                    {% for project in all_projects %}
+                        <tr>
+                            <td><a href="{{ project.client.get_absolute_url }}">{{project.name}}</a></td>
+                            <td class="">{{project.start}}</td>
+                            <td class="">{{project.finish}}</td>
+                            <td class="">{{project.statut}}</td>
+                            <td class="">{{project.comment}}</td>
+
+
+                            
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <h3>No hay project</h3>
+        {% endif %}
+    </div>

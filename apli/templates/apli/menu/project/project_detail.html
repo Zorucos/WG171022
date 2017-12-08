@@ -4,13 +4,10 @@
         <h1><small>Project  {{project.sort}}</small> {{project.name}} <small>from {{project.user.first_name}}</small></h1>
     </div>
 
-    <!-- BOTONES PARA EDITAR ELIMINAR VENTANAS DESPEGABLES -->
-    <div class="container  modal-header">
- 
-    </div>
 
 
-        <div class="container  modal-header">
+
+<div class="container  modal-header">
         <div class="row">
 <!-- add modelo -->
             <a href="{% url 'assignment_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-user col-md-offset-2" data-toggle="modal"> </a>
@@ -19,7 +16,7 @@
 <!-- add csoto -->
             <a href="{% url 'cost_new' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-gbp col-md" data-toggle="modal"></a>
 <!-- add tiempo -->
-            <a href="#ventana3" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-time col-md" data-toggle="modal"></a>  
+            <a href="{% url 'create_time_work' %}" <button type="submit" class="btn btn-primary btn-md glyphicon glyphicon-time col-md" data-toggle="modal"></a>  
 
 
                 <!-- segunda parte  -->
@@ -39,7 +36,7 @@
 
 
        <!-- INFORMACION DE CLIENTE   -->
-    <div class= "container">
+<div class= "container">
         <br>
         <div class="row">
             <div class="container col-md-4">
@@ -222,17 +219,16 @@
                 </div>
                 
             </div>
+<br>
+<br><br>
 
     <!-- TABLA de ASSIGNMENT ASSIGNADOS AL PROJECTO  -->
-    <div class="container">
-        <br>
-        <div class="panel panel-warning">
-            <div class="panel-heading"><h3>ASSIGNMENT ASSIGNADOS AL PROJECTO</h3></div>
-            <div class="panel-body">
+    
+           <h3>ASSIGNMENT ASSIGNADOS AL PROJECTO</h3>
                 {% if all_persons %}
                     <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <tr class="active table-bordered">
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active">
                                 <th > Name</th>
                                 <th> Telefonnummer</th>
                                 <th> Email</th>
@@ -241,7 +237,7 @@
                             </tr>
                             {% for assignment in all_persons %}
                                 <tr>
-                                    <td><a href="{% url 'assignment_detail' assignment.person.id %}"><p class="form-control-static">{{assignment.person.name}}<p></a></td>
+                                    <td><a href="{% url 'assignment_detail' assignment.person.id %}"><p class="">{{assignment.person.name}}<p></a></td>
                                     <td><a href="tel:{{ assignment.person.phone }}">{{assignment.person.phone}}</a></td>
                                     <td><a href="mailto:{{ model.person.email }}">{{assignment.person.email}}</a></td>
                                     <td>{{assignment.statut}}</td>
@@ -253,20 +249,17 @@
                 {% else %}
                     <p> Keine Projekte </p>
                 {% endif %}
-            </div>
-        </div>
-    </div>
+           
+       
+  
 
     <!-- TABLA de ATTACHMENT  -->
-    <div class="container">
-        <br>
-        <div class="panel panel-warning">
-            <div class="panel-heading"><h3>ATTACHMENT</h3></div>
-            <div class="panel-body">
+
+            <h3>ATTACHMENT</h3>
                 {% if all_models %}
                     <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <tr class="active table-bordered">
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active">
                                 <th > Name</th>
                                 <th> Telefonnummer</th>
                                 <th> Email</th>
@@ -287,20 +280,14 @@
                 {% else %}
                     <p> Keine Projekte </p>
                 {% endif %}
-            </div>
-        </div>
-    </div>
+   
 
                 <!-- COSTO   -->
-    <div class="container">
-        <br>
-        <div class="panel panel-warning">
-            <div class="panel-heading"><h3>Costs</h3></div>
-            <div class="panel-body">
+   <h3>Costs</h3>
                 {% if all_costs %}
                     <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <tr class="active table-bordered">
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active">
                                 <th>Date</th>
                                 <th>Cost</th>
                                 <th>Amount</th>
@@ -321,21 +308,15 @@
                 {% else %}
                     <p> Keine Assignment </p>
                 {% endif %}
-            </div>
-        </div>
-    </div>
+
 
 
         <!-- TABLA de TASK  -->
-    <div class="container">
-        <br>
-        <div class="panel panel-warning">
-            <div class="panel-heading"><h3>TASK </h3></div>
-            <div class="panel-body">
+    <h3>TASK </h3>
                 {% if all_models %}
                     <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <tr class="active table-bordered">
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active">
                                 <th > Name</th>
                                 <th> Telefonnummer</th>
                                 <th> Email</th>
@@ -356,21 +337,16 @@
                 {% else %}
                     <p> Keine Projekte </p>
                 {% endif %}
-            </div>
-        </div>
-    </div>
+
 
      <!-- TABLA de WORK TIME  -->
-    <div class="container">
-        <br>
-        <div class="panel panel-warning">
-            <div class="panel-heading"><h3>WORK TIME</h3></div>
-            <div class="panel-body">
+   <h3>WORK TIME</h3>
+          
                 {% if all_models %}
                     <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <tr class="active table-bordered">
-                                <th > Name</th>
+                        <table class="table  table-hover table-condensed">
+                            <tr class="active">
+                                <th>Name</th>
                                 <th> Telefonnummer</th>
                                 <th> Email</th>
                                 <th> Status</th>
@@ -390,7 +366,6 @@
                 {% else %}
                     <p> Keine Projekte </p>
                 {% endif %}
-            </div>
-        </div>
-    </div>
+
+  </div>
 {% endblock %}

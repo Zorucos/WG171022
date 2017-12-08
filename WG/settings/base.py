@@ -23,6 +23,8 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
 
+
+
 # ADMINS = (
 #     ('You', 'you@email.com'),
 # )
@@ -34,8 +36,7 @@ DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
 # Application definition
 
 INSTALLED_APPS = [
-    'apli.apps.ApliConfig',
-    'fullcalendar.apps.FullcalendarConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     'django_tables2',
     'django_filters',
-    'pdf.apps.PdfConfig'
+    'pdf.apps.PdfConfig',
+    'apli.apps.ApliConfig',
+    'fullcalendar.apps.FullcalendarConfig',
 ]
 
 
@@ -150,3 +153,4 @@ CSRF_COOKIE_SECURE              = False
 SECURE_HSTS_SECONDS             = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
+

@@ -8,21 +8,58 @@
 {% block body %}
 
     <!--TITULO y BOTON VENTANA    -->
-    <div class="container">
-        <div class=" form-group input-group form-inline col-md-12" >
-            <h1 class="form-control-static">Liste Kontakt</h1>
-            <div cclass="row">
-                <a href="{% url 'person_new' %}" <button type="submit" class=" btn btn-success btn-md pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+
+ <div class="container">
+
+        <div class="form-group ">
+
+            <div class="row">
+                <h1 class="form-control-static">Liste Kontakt</h1> 
             </div>
-        </div>
-        <head>
+        
 
+            <div class="row">
+                <a href="{% url 'person_new' %}" <button type="submit" class=" btn btn-success btn-md pull-right "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </a>
+            </div>
+        
+<hr/>
+        <br>
+    <head>
             <body>
-                {% render_table table %}
-            </body>
-        </head>
+                <div class="container">
+                    <div class="row">
+                      <table id="person_index" class="table  table-hover table-condensed order-column" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Mail</th>
+                                    <th>Telefonnummer</th>
+                                    <th>Sedcard</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for person in all_persons %}
 
-    </div>
+                                    <tr>
+                                        
+                                        <td><a href="{% url 'person_detail' person.id %}">{{person.name}}</a></td>
+                                        <td>{{person.statut}}</td>
+                                        <td><a href="mailto:{{ person.email }}">{{person.email}}</a></td>
+                                        <td><a href="tel:{{ person.telephone }}">{{person.telephone}}</a></td>
+                                        <td>{{person.sedcard}}</p></td>
+                                    </tr>
+                                {% endfor %}
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </body>
+    </head>
+
+</div>
 
     
 {% endblock%}

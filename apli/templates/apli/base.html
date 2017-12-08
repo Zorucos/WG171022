@@ -15,9 +15,10 @@
         {fullcalendar_javascript }
         {calendar_init calendar_config_options } -->
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
-        <!-- <link rel="stylesheet" type="text/css" href="{ static 'apli/style.css' }"/> -->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
         <style>
             body {
                 padding-top:60px;
@@ -26,64 +27,75 @@
     </head>
 
     <body>
-        {% if request.user.is_authenticated %}
-        <div class="container-fluid">
+        <div class="container ">
+          
             <header>
-                <div="row">
-                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavBar">
-                                    <span class="sr-only">Desplegar / Ocultar Menu</span>
+                <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#navbar-1">
+                                    <span class="sr-only"> Menu</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
-                                </button>
-                                <a href="{% url 'dashboard' %}" class="navbar-brand">Dashboard</a>
-                            </div>
+                            </button>
 
-                            <div class="collapse navbar-collapse" id="topNavBar">
+                            <a href="#" class="navbar-brand visible-xs">Wunschgesichter</a>
+                            <div class="collapse navbar-collapse" id="navbar-1">
                                 <ul class="nav navbar-nav">
+
+                                    <li role="presentation" class="{% block dashboard_active %}{% endblock %}"><a href="{% url 'dashboard' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Dashboard</a></li>
 
                                     <li role="presentation" class="{% block clients_active %}{% endblock %}"><a href="{% url 'person_index' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> kontakt</a></li>
 
                                     <li role="presentation" class="{% block cotizaciones_active %}{% endblock %}"><a href="{% url 'project_index' %}"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Projekt</a></li>
 
-                                   
-                                    
-
-                                    </li>
-
                                     <li role="presentation" class="{% block calendario_active %}{% endblock %}"><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Kalendar</a></li>
-                                   
-                                    <li role="presentation" >
-                                        <form  method="GET" action="{% url 'busca' %}" class="navbar-form navbar-right" role="search" >
-                                            <input type="text" placeholder="Suchen" class="form-control" name="q" value="{{ request.GET.q }}">
-                                            <button type="submit" class="btn btn-primary ">
-                                                <span class="glyphicon glyphicon-search"></span>
-                                            </button>
-                                        </form>
-                                     </li>
-                                    <div class= "nav navbar-nav" >
-                                        
-                                            <li role="presentation" class="pull-right"><a href="{% url 'logout' %}" > <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout {{ user }} </a></li>
-                                      
+                                
+
+                                <form  method="GET" action="{% url 'busca' %}" class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Suchen" class="form-control" name="q" value="{{ request.GET.q }}">
+                                        <button type="submit" class="btn btn-primary ">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
                                     </div>
+                                </form>
+
+                                            
+                                    <li role="presentation" ><a href="{% url 'logout' %}" > <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout {{ user }} </a></li>
+                                          
                                 </ul>
                             </div>
                         </div>
-                    </nav>
-                </div>
-            </header>
-        </div>
+                    </div>
+                </nav>
+            </header>  
+        </div>  
 
-      {% block body %}
+                {% block body %}
 
-        {% endblock %} 
-        <footer>
-        </footer>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        {% else %}
-      {% endif %}
+                {% endblock %} 
+                <footer>
+                </footer>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript">
+           $(document).ready(function() {
+            $('#project_index').DataTable();
+            } );
+           $(document).ready(function() {
+            $('#person_index').DataTable();
+            } );
+        </script>
     </body>
 </html>
+
+
+  

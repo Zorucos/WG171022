@@ -31,6 +31,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    
     'apli.apps.ApliConfig',
     'fullcalendar.apps.FullcalendarConfig',
     'django.contrib.admin',

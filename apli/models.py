@@ -9,9 +9,9 @@ from django.conf import settings
 
 class Person(models.Model):
     name            = models.CharField(max_length=20, verbose_name="Name", default="")
-    name_short      = models.CharField(max_length=100, blank=True, verbose_name="Kurs Name")
+    name_short      = models.CharField(max_length=100, blank=True, verbose_name="Kontaktkursname")
     company         = models.CharField(max_length=200, blank=True, verbose_name="Firma")
-    company_short   = models.CharField(max_length=100, blank=True, verbose_name="Kurs firma Name")
+    company_short   = models.CharField(max_length=100, blank=True, verbose_name="Firmakursname")
     country         = models.CharField(max_length=50, blank=True, verbose_name="Land")
     city            = models.CharField(max_length=50, blank=True, verbose_name="Stadt")
     zip_code        = models.CharField(max_length=15, blank=True, verbose_name="code")
@@ -117,6 +117,8 @@ class Project(models.Model):
     total_price                     = models.IntegerField(null=True, blank=True)
     tax                             = models.IntegerField(default=19)
     statut                          = models.CharField(max_length=9, choices=(('Draft', 'draft'), ('yyy', 'active'), ('xxx', 'facture_sent'), ('bezhal', 'payed'), ('Absagen', 'canceled'),), default='Draft')
+    last_edited_by                  = models.ForeignKey(User, null=True, blank=True, related_name='person_edit1')
+    added_by                        = models.ForeignKey(User, null=True, blank=True, related_name='person_add1')
 
     class Meta:
         verbose_name        = 'Project'
@@ -141,6 +143,8 @@ class Attachment(models.Model):
     comment_client  = models.CharField(max_length=500, blank=True)
     project         = models.ForeignKey(Project, on_delete=models.CASCADE)
     person          = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
+    last_edited_by  = models.ForeignKey(User, null=True, blank=True, related_name='person_edit2')
+    added_by        = models.ForeignKey(User, null=True, blank=True, related_name='person_add2')
 
     class Meta:
         verbose_name        = 'Attachment'
@@ -164,6 +168,8 @@ class Assignment(models.Model):
     confirmation_date   = models.DateField(null=True, blank=True)
     payment_date        = models.DateField(null=True, blank=True)
     total_price         = models.IntegerField(null=True, blank=True)
+    last_edited_by      = models.ForeignKey(User, null=True, blank=True, related_name='person_edit3')
+    added_by            = models.ForeignKey(User, null=True, blank=True, related_name='person_add3')
 
     class Meta:
         verbose_name        = 'Assignment'
@@ -177,12 +183,14 @@ class Assignment(models.Model):
 
 
 class Horaire(models.Model):
-    assignment      = models.ForeignKey(Assignment, on_delete=models.CASCADE)
-    date            = models.DateField()
-    start_time      = models.TimeField()
-    finish_time     = models.TimeField()
-    start_time_real = models.TimeField(null=True, blank=True)
-    finish_time_real= models.TimeField(null=True, blank=True)
+    assignment          = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    date                = models.DateField()
+    start_time          = models.TimeField()
+    finish_time         = models.TimeField()
+    start_time_real     = models.TimeField(null=True, blank=True)
+    finish_time_real    = models.TimeField(null=True, blank=True)
+    last_edited_by      = models.ForeignKey(User, null=True, blank=True, related_name='person_edit4')
+    added_by            = models.ForeignKey(User, null=True, blank=True, related_name='person_add4')
 
     class Meta:
         verbose_name        = 'Horaire'
@@ -193,13 +201,15 @@ class Horaire(models.Model):
 
 
 class Cost(models.Model):
-    user    = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=500, blank=True)
-    date    = models.DateField()
-    amount  = models.IntegerField()
-    title   = models.CharField(max_length=100)
-    statut  = models.CharField(max_length=14, choices=(('planned', 'planned'), ('complete', 'complete'),), default='planned')
+    user                = models.ForeignKey(User, on_delete=models.CASCADE)
+    project             = models.ForeignKey(Project, on_delete=models.CASCADE)
+    comment             = models.CharField(max_length=500, blank=True)
+    date                = models.DateField()
+    amount              = models.IntegerField()
+    title               = models.CharField(max_length=100)
+    statut              = models.CharField(max_length=14, choices=(('planned', 'planned'), ('complete', 'complete'),), default='planned')
+    last_edited_by      = models.ForeignKey(User, null=True, blank=True, related_name='person_edit5')
+    added_by            = models.ForeignKey(User, null=True, blank=True, related_name='person_add5')
 
     class Meta:
         verbose_name        = 'Cost'
@@ -213,13 +223,15 @@ class Cost(models.Model):
 
 
 class Time(models.Model):
-    title       = models.CharField(max_length=100)
-    user        = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment     = models.CharField(max_length=500, blank=True)
-    date        = models.DateField()
-    start_time  = models.TimeField()
-    finish_time = models.TimeField()
-    project     = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
+    title           = models.CharField(max_length=100)
+    user            = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment         = models.CharField(max_length=500, blank=True)
+    date            = models.DateField()
+    start_time      = models.TimeField()
+    finish_time     = models.TimeField()
+    project         = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
+    last_edited_by  = models.ForeignKey(User, null=True, blank=True, related_name='person_edit6')
+    added_by        = models.ForeignKey(User, null=True, blank=True, related_name='person_add6')
 
     class Meta:
         verbose_name        = 'Time'
