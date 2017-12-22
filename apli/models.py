@@ -7,6 +7,7 @@ from .utils import unique_slug_generator
 from django.conf import settings
 
 
+
 class Person(models.Model):
     name            = models.CharField(max_length=20, verbose_name="Name", default="")
     name_short      = models.CharField(max_length=100, blank=True, verbose_name="Kontaktkursname")
@@ -150,6 +151,8 @@ class Attachment(models.Model):
         verbose_name        = 'Attachment'
         verbose_name_plural = 'Attachments'
 
+
+
     def __str__(self):
         return self.sort
 
@@ -195,6 +198,7 @@ class Horaire(models.Model):
     class Meta:
         verbose_name        = 'Horaire'
         verbose_name_plural = 'Horaires'
+
 
     def get_absolute_url(self):
         return reverse('assignment_detail', kwargs={'pk': self.pk})

@@ -11,7 +11,7 @@
             <a href="{% url 'assignment_update' assignment.id %}" <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-pencil col-md-offset-10" data-toggle="modal"></a>
             
             <!-- agregar Horario -->
-            <a href="{% url 'create_time_assignment' %}" <button type="submit" class="btn btn-info btn-xs glyphicon glyphicon-plus col-md" data-toggle="modal"></a>
+            <a href="{% url 'create_horaire_assignment' %}" <button type="submit" class="btn btn-info btn-xs glyphicon glyphicon-plus col-md" data-toggle="modal"></a>
             <!-- send Horario -->
             <a href="{#}" <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-send col-md" data-toggle="modal"></a>
                 <!-- ELIMINAR -->
@@ -57,7 +57,7 @@
                             </tr>
                             {% for horaire in all_horaire %}
                                 <tr>
-                                    <td><a href="{% url 'edit_time_assignment' horaire.id %}"><p class="form-control-static">{{horaire.date}}</p></a></td>
+                                    <td><a href="{% url 'edit_horaire_assignment' horaire.id %}"><p class="">{{horaire.date}}</p></a></td>
                                     <td>{{horaire.start_time}}</td>
                                     <td>{{horaire.finish_time}}</td>
                                 </tr>

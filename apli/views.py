@@ -13,6 +13,8 @@ from django.views.generic import View
 from .models import Person, Project, Attachment, Assignment, Horaire, Cost, Time
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
+
 
 # para las tablas + render tbn (za esta)
 from django_tables2 import RequestConfig #TABLA
@@ -200,6 +202,7 @@ class CostCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.added_by = self.request.user
         return  super(CostCreate, self).form_valid(form)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
  
 
 class CostUpdate(LoginRequiredMixin, UpdateView):
@@ -235,17 +238,18 @@ def dashboard(request):
 
 #HORAIRE assignment
 
-class create_time_assignment(LoginRequiredMixin, CreateView):
+class create_horaire_assignment(LoginRequiredMixin, CreateView):
 
     template_name = "apli/horaire_form.html"
     form_class = HoraireForm
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user
-        return  super(create_time_assignment, self).form_valid(form)
+        return  super(create_horaire_assignment, self).form_valid(form)
+       
 
 
-class edit_time_assignment(LoginRequiredMixin, UpdateView):
+class edit_horaire_assignment(LoginRequiredMixin, UpdateView):
 
     model = Horaire
     template_name = "apli/horaire_form.html"
@@ -253,12 +257,12 @@ class edit_time_assignment(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.last_edited_by = self.request.user
-        return  super(edit_time_assignment, self).form_valid(form)
+        return  super(edit_horaire_assignment, self).form_valid(form)
 
 
 
 
-class delete_time_assignment(LoginRequiredMixin, DeleteView):
+class delete_horaire_assignment(LoginRequiredMixin, DeleteView):
     model = Horaire
     success_url = reverse_lazy('index_project')
 ###################################################################
@@ -273,6 +277,7 @@ class create_time_work(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.added_by = self.request.user
         return  super(create_time_work, self).form_valid(form)
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
  
 class edit_time_work(LoginRequiredMixin, UpdateView):
 

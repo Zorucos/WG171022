@@ -288,16 +288,16 @@
                     <div class="table-responsive">
                         <table class="table  table-hover table-condensed">
                             <tr class="active">
-                                <th>Date</th>
                                 <th>Cost</th>
+                                <th>Date</th>
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th>Comment</th>
                             </tr>
                             {% for cost in all_costs %}
                                 <tr>
-                                    <td><a href="{#}">{{cost.date}}</td>
-                                    <td>{{cost.title}}</td>
+                                    <td><a href="{% url 'cost_update' cost.id %}">{{cost.title}}</a></td>
+                                    <td>{{cost.date}}</td>
                                     <td>{{cost.amount}}</td>
                                     <td>{{cost.statut}}</td>
                                     <td>{{cost.comment}}</td>

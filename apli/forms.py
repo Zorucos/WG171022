@@ -4,7 +4,7 @@ from .models import Person, Project, Cost, Attachment, Horaire, Assignment, Time
 
 
 YEARS = [x for x in range(1980,2031)]
-YEAR_DATE = [x for x in range(2017,2031)]
+YEAR_DATE = [x for x in range(2015,2031)]
 
 
 class PersonForm(forms.ModelForm):
@@ -163,9 +163,9 @@ class AttachmentForm(forms.ModelForm):
         ]
 
 class HoraireForm(forms.ModelForm):
-    date = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="start")
-    start_time = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="start")
-    finish_time = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="start")
+    date = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="Datum")
+    start_time = forms.TimeField(widget=forms.TimeInput(format='%I:%M %p',), label="Startdatum")
+    finish_time = forms.TimeField(widget=forms.TimeInput(format='%I:%M %p',), help_text="Enter a date between now and 4 weeks (default 3).", label="Endedatum")
 
     class Meta: 
         model = Horaire
@@ -203,8 +203,8 @@ class AssignmentForm(forms.ModelForm):
         ]
 
 class TimeForm(forms.ModelForm):
-    start_time = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="Startdatum")
-    finish_time = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="Enddatum")
+    start_time = forms.TimeField(widget=forms.TimeInput(format='%I:%M %p',), label="Startdatum")
+    finish_time = forms.TimeField(widget=forms.TimeInput(format='%I:%M %p',), label="Enddatum")
     date = forms.DateField(widget=forms.SelectDateWidget(years=YEAR_DATE), label="Datum")
     comment = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 1, "cols": 22}), label="Komment")
 

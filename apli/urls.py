@@ -32,9 +32,9 @@ urlpatterns = [
 	url(r'^dashboard/$', views.dashboard, name='dashboard'),
 
     # TIMETABLE HORAIRE
-    url(r'^time/new/$', views.create_time_assignment.as_view(), name='create_time_assignment'),
-    url(r'^time/(?P<pk>[0-9]+)/update/$', views.edit_time_assignment.as_view(), name='edit_time_assignment'),
-    url(r'^time/(?P<pk>[0-9]+)/delete/$', views.delete_time_assignment.as_view(), name='delete_time_assignment'),
+    url(r'^time/new/$', views.create_horaire_assignment.as_view(), name='create_horaire_assignment'),
+    url(r'^time/(?P<pk>[0-9]+)/update/$', views.edit_horaire_assignment.as_view(), name='edit_horaire_assignment'),
+    url(r'^time/(?P<pk>[0-9]+)/delete/$', views.delete_horaire_assignment.as_view(), name='delete_horaire_assignment'),
 
     # TIME work in generall 
     url(r'^timework/new/$', views.create_time_work.as_view(), name='create_time_work'),

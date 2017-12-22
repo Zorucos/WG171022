@@ -1,5 +1,5 @@
 
-<div class="container">
+
 		{% for field in form %}
 	<row class="col-md-4">
 		{% csrf_token %}	
@@ -10,7 +10,7 @@
 		<div class="col-sm-2,1">{{ field }}</div>		
 	</row>
 		{% endfor %}
-</div>
+
 
 
 
@@ -31,16 +31,16 @@
 
 
 
-<div class="container">
+
 	<div class="  form-group">
 		<div class=" col-md-12">
 			 <br>										
-			<a href="{{request.META.HTTP_REFERER}}" <button type="submit" class="btn btn-lg col-md-5 btn-success">Submit</button></a>
+			<button type="submit" class="btn btn-lg col-md-5 btn-success">Submit</button>
 		    <a href="{{request.META.HTTP_REFERER}}" <button type="button" class="btn btn-warning btn-md col-md-5 pull-right" data-dismiss="modal" >Stornieren</a>
 		</div>
 	</div>
-<div>
-</form>		
+
+		
 
 
 
